@@ -8,6 +8,8 @@ const CONNECTION_STRING = "mongodb+srv://admin:"+process.env.DB_PASSWORD+"@lavan
 const DATABASE = "lavandry";//nome del database
 let database;
 
+//da aggiungere swagger per documentare l'API
+
 const cors = require('cors')
 app.use(cors())
 
