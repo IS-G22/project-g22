@@ -31,7 +31,7 @@ app.listen(49146, () => {
         TipiLavaggio = database.collection("tipo-lavaggio");
         Lavatrici = database.collection("lavatrici");
         Utenti = database.collection("lavatrici");
-        Prenotazioni = database.collection("prenotazioni");
+        Prenotazioni = database.collection("prenotazione_tipo_lavaggio");
     })
     console.log("Lavandry API is running!");
 });
@@ -58,10 +58,12 @@ app.get("/lavatrici", (request, response) => {
     console.log((new Date()).getTime())
 });
 
-app.get("/prenotazioni-utente", (request, response) => {
+app.get("/prenotazioni/attive/utente", async (request, response) => {
     let query = {
         id_utente: -1,
-    }
+        data_max_fine: { $gte: (new Date()).getTime() }
+    };
+
 
     if (request.query.id_utente) {
         query.id_utente = parseInt(request.query.id_utente)
@@ -70,13 +72,22 @@ app.get("/prenotazioni-utente", (request, response) => {
     }
 
 
-
-    Prenotazioni.find(query).toArray(function (err, result) {
-        if (err) {
-            response.send(err);
-        } else {
-            response.send(JSON.stringify(result));
-        }
-    });
+    response.send(await Prenotazioni.find(query).toArray());
 });
 
+
+app.get("/prenotazioni/utente", async (request, response) => {
+    let query = {
+        id_utente: -1,
+    };
+
+    if (request.query.id_utente) {
+        query.id_utente = parseInt(request.query.id_utente)
+    } else {
+        response.send("Inserisci il parametro <b>id_utente</b>")
+    }
+
+
+    response.send(await Prenotazioni.find(query).toArray());
+
+});
