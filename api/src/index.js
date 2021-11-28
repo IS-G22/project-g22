@@ -36,26 +36,16 @@ app.listen(49146, () => {
     console.log("Lavandry API is running!");
 });
 
-app.get("/tipi-lavaggio", (request, response) => {
-    TipiLavaggio.find().toArray(function (err, result) {
-        if (err) {
-            response.send(err);
-        } else {
-            response.send(JSON.stringify(result));
-        }
-    });
+app.get("/tipi-lavaggio", async (_, response) => {
+    response.send(await TipiLavaggio.find().toArray());
 });
 
-app.get("/lavatrici", (request, response) => {
-    Lavatrici.find().toArray(function (err, result) {
-        if (err) {
-            response.send(err);
-        } else {
-            response.send(JSON.stringify(result));
-        }
-    });
+app.get("/lavatrici", async (_, response) => {
+    response.send(await Lavatrici.find().toArray());
+});
 
-    console.log((new Date()).getTime())
+app.post("/lavatrici/add", async (request, response) => {
+    response.send(await Lavatrici.insertOne(request.query));
 });
 
 app.get("/prenotazioni/attive/utente", async (request, response) => {
@@ -80,6 +70,7 @@ app.get("/prenotazioni/utente", async (request, response) => {
     let query = {
         id_utente: -1,
     };
+
 
     if (request.query.id_utente) {
         query.id_utente = parseInt(request.query.id_utente)
