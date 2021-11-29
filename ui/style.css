@@ -11,13 +11,10 @@ body{
     margin:0; padding:0; border:0;
 }
 
-h1{
+h1, h2, h3, h4, h5, h6{
     margin:0; padding:0; border:0;
 }
 
-h4{
-    margin:0; padding:0; border:0;
-}
 
 ul{
     padding:0;
@@ -68,15 +65,17 @@ li{
     border:1px solid black;
     border-radius: 15px;
     max-width: 500px;
-    padding: 10px;
+    padding: 0;
     margin:10px;
 }
 
 .img-lavatrice{
     height: 100px;
+    user-select: none;
 }
 
 .box{
+    margin: 10px;
     display: flex;
 }
 
@@ -84,4 +83,36 @@ li{
     padding: 10px;
     padding-bottom: 2px;
     padding-top: 2px;
+}
+
+.delete{
+    color: rgb(175, 0, 0);
+    background-color: rgba(76, 169, 173, 0.445);
+    padding:5px;
+    text-align: center;
+    border-top:1px solid black;
+    border-bottom:1px solid black;
+    cursor:pointer;
+    transition: all 0.5s;
+    user-select: none;
+}
+
+.delete:hover{
+    color: red;
+    background-color: rgba(54, 243, 253, 0.589);
+}
+
+
+.open{
+    padding:7px;
+    text-align: center;
+    cursor:pointer;
+    border-radius: 0 0 15px 15px;
+    transition: all 0.5s;
+    user-select: none;
+}
+
+.open:hover{
+    background-color: red;
+    
 }

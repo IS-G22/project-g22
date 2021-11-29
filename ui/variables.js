@@ -3,16 +3,12 @@ const variables ={
 }
 
 function formattaData(data){
-    let giorno;
-    switch(data.getDay()){
-        case 0:giorno="Lunedì"; break;
-        case 1:giorno="Martedì"; break;
-        case 2:giorno="Mercoledì"; break;
-        case 3:giorno="Giovedì"; break;
-        case 4:giorno="Venerdì"; break;
-        case 5:giorno="Sabato"; break;
-        case 6:giorno="Domenica"; break;
-        default:giorno="Boh";
-    }
-    return giorno;
+    const giorno =["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"];
+    const mese=["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
+    return `${giorno[data.getDay()]} ${data.getDate()} ${mese[data.getMonth()]} ${data.getFullYear()}`;
+}
+
+function formattaSlot(data_init, durata){
+    let data_fine = new Date(data_init.getTime() + durata*60000);
+    return `${data_init.getHours()}:${data_init.getSeconds()} - ${data_fine.getHours()}:${data_fine.getSeconds()}`;
 }

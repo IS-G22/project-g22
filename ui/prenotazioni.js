@@ -6,10 +6,14 @@ const prenotazioni = {
             <div class="box">
                 <img src="./photo/lavatrice.jpg" class="img-lavatrice"></img>
                 <div class="box-info">
-                    <h4>Lavatrice {{pren.id_lavatrice}}</h4>
+                    <h4>Prenotazione {{pren.id}}</h4>
+                    <h5>Lavatrice {{pren.id_lavatrice}}</h5>
                     <div>{{pren.formatted_data}}</div>
+                    <div class="slot">{{pren.formatted_slot}}</div>
                 </div>
             </div>
+            <div class="delete">Cancella Prenotazione</div>
+            <div class="open">APRI SPORTELLO</div>
         
         </section>
     </div>
@@ -27,6 +31,7 @@ const prenotazioni = {
                 console.log(this.prenotazioni);
                 this.prenotazioni.forEach((el, index, arr)=>{
                     arr[index].formatted_data = formattaData(new Date(el.data));
+                    arr[index].formatted_slot = formattaSlot(new Date(el.data), el.durata);
                 })
             });
         },
