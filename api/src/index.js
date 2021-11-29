@@ -92,7 +92,7 @@ app.get("/giorni-prenotabili", async (request, response) => {
         id_tipo_lavaggio = parseInt(request.query.id_tipo_lavaggio)
         tipoLavaggio = await tipiLavaggio.findOne({ id: id_tipo_lavaggio });
         durata_lavaggio = tipoLavaggio.durata;
-        let prenotazioni = await prenotazioni.find().toArray();
+        let lista_prenotazioni = await prenotazioni.find().toArray();
         console.log(tipoLavaggio);
     } else {
         response.send("Inserisci il parametro <b>id_tipo_lavaggio</b>")
@@ -111,3 +111,16 @@ function convertDate(inputFormat) {
     var d = new Date(inputFormat)
     return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/')
 }
+
+
+
+
+
+
+app.get("/v2/giorni-prenotabili", async (request, response) => {
+    let aa = database.collection('prenotazione_prenotazione_successiva').find();
+
+    let json = await aa.toArray();
+    response.send(json);
+    console.log(json[2]);
+})

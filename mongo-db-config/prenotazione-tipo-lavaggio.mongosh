@@ -4,8 +4,7 @@ db.createView(
         "prenotazioni",
         [
             { $lookup: { from: "tipo-lavaggio", localField: "id_tipo_lavaggio", foreignField: "id", as: "durata" } },
-            {
-                $set: {
+            { $set: {
                     "durata": { $arrayElemAt: ["$durata.durata", 0] },
                     "data_max_fine": {
                         $add: [

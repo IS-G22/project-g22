@@ -1,29 +1,31 @@
 db.prenotazione_prenotazione_successiva.drop();
 db.createView(
     "prenotazione_prenotazione_successiva",
-    "prenotazioni",
+    "prenotazione_tipo_lavaggio",
     [
-        { $lookup:
+        {
+            $lookup:
             {
-            from: "prenotazioni",
-            let: { data_fine_n: "$data_fine", id_lavatrice_n: "$id_lavatrice"},
-            pipeline: [
-                    { $match:
-                        { $expr:
-                            { $and:
-                                [
-                                { $gt: [ "$data_fine", "$$data_fine_n"] },
-                                { $eq: ["$id_lavatrice", "$$id_lavatrice_n" ] }
-                                ]
+                from: "prenotazione_tipo_lavaggio",
+                let: { data_n: "$data", id_lavatrice_n: "$id_lavatrice" },
+                pipeline: [
+                    {
+                        $match:
+                        {
+                            $expr: {
+                                $and:
+                                    [
+                                        { $lte: ["$data_max_fine", "$$data_n"] },
+                                        { $eq: ["$id_lavatrice", "$$id_lavatrice_n"] }
+                                    ]
                             }
                         }
-                    }
+                    },
+                    { $sort: { data: 1 } },
+                    { $limit: 1 }
                 ],
                 as: "successive"
             }
         }
     ]
 )
-
-
-    Select *, (select data_fine from prenotazioni "SEC" where SEC.id_lavatrice = MAIN.id_lavatrice and SEC.data_fine>MAIN.data_fine order by data_fine limit 1) as "fine_succ" from prenotazioni "MAIN";
