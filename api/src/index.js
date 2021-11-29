@@ -37,19 +37,19 @@ app.listen(49146, () => {
     console.log("Lavandry API is running!");
 });
 
-app.get("/tipo-lavaggio", async (_, response) => {
+app.get("/api/tipo-lavaggio", async (_, response) => {
     response.send(await tipiLavaggio.find().toArray());
 });
 
-app.get("/lavatrici", async (_, response) => {
+app.get("/api/lavatrici", async (_, response) => {
     response.send(await lavatrici.find().toArray());
 });
 
-app.post("/lavatrici/add", async (request, response) => {
+app.post("/api/lavatrici/add", async (request, response) => {
     response.send(await lavatrici.insertOne(request.query));
 });
 
-app.get("/prenotazioni/attive/utente", async (request, response) => {
+app.get("/api/prenotazioni/attive/utente", async (request, response) => {
     let query = {
         id_utente: -1,
         data_max_fine: { $gte: (new Date()).getTime() }
@@ -57,17 +57,15 @@ app.get("/prenotazioni/attive/utente", async (request, response) => {
 
 
     if (request.query.id_utente) {
-        query.id_utente = parseInt(request.query.id_utente)
+        query.id_utente = parseInt(request.query.id_utente);
+        response.send(await prenotazioni.find(query).toArray());
     } else {
         response.send("Inserisci il parametro <b>id_utente</b>")
     }
-
-
-    response.send(await prenotazioni.find(query).toArray());
 });
 
 
-app.get("/prenotazioni/utente", async (request, response) => {
+app.get("/api/prenotazioni/utente", async (request, response) => {
     let query = {
         id_utente: -1,
     };
@@ -75,24 +73,23 @@ app.get("/prenotazioni/utente", async (request, response) => {
 
     if (request.query.id_utente) {
         query.id_utente = parseInt(request.query.id_utente)
+        response.send(await prenotazioni.find(query).toArray());
     } else {
         response.send("Inserisci il parametro <b>id_utente</b>")
     }
-
-
-    response.send(await prenotazioni.find(query).toArray());
-
 });
 
-app.get("/giorni-prenotabili", async (request, response) => {
+app.get("/api/giorni-prenotabili", async (request, response) => {
     let id_tipo_lavaggio;
     let tipoLavaggio;
     let durata_lavaggio = null;
     if (request.query.id_tipo_lavaggio) {
+        
         id_tipo_lavaggio = parseInt(request.query.id_tipo_lavaggio)
+        console.log(id_tipo_lavaggio)
         tipoLavaggio = await tipiLavaggio.findOne({ id: id_tipo_lavaggio });
         durata_lavaggio = tipoLavaggio.durata;
-        let prenotazioni = await prenotazioni.find().toArray();
+        let prenotazioni_disponibili = await prenotazioni.find().toArray();
         console.log(tipoLavaggio);
     } else {
         response.send("Inserisci il parametro <b>id_tipo_lavaggio</b>")
