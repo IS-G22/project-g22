@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Home</title>
+</head>
+<body>
+    <div id="app" class="app">
+        <h1>Lavandry</h1>
+        <div class="container-app">
+            <nav class="leftbar">
+                <h4>menu</h4>
+                <div>
+                    <ul>
+                        <li>
+                            <router-link class="btn"
+                            to="/prenotazioni">Prenotazioni</router-link>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <router-view></router-view>
+        </div>
+        
+
+        
+    </div>
+    <script src="variables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    
+    <script src="prenotazioni.js"></script>
+    
+
+
+    <script src="app.js"></script>
+    
+</body>
+</html>

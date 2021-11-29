@@ -1,6 +1,7 @@
 console.log("Lavandry API started");
 const Express = require('express');
 const app = Express();
+const path = require('path');
 
 require('dotenv').config('./.env');//carico il file che contiene la password per connettersi al database
 const MongoClient = require("mongodb").MongoClient;
@@ -36,6 +37,11 @@ app.listen(49146, () => {
     })
     console.log("Lavandry API is running!");
 });
+
+app.get("/", (req, res) =>{
+    res.sendFile(path.join(__dirname, '../../ui/home.html'));
+});
+
 
 app.get("/api/tipo-lavaggio", async (_, response) => {
     response.send(await tipiLavaggio.find().toArray());
