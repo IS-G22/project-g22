@@ -15,24 +15,34 @@
                 <h4>menu</h4>
                 <div>
                     <ul>
-                        <li>
-                            <router-link class="btn"
-                            to="/prenotazioni">Prenotazioni</router-link>
+                        <li class="btn">
+                            <router-link 
+                            to="/prenotazioni" class="menutext" onClick="app.setActive(0)" v-bind:class="[isActive==0 ? 'active' : '']">Prenotazioni</router-link>
+                        </li>
+                        <li class="btn">
+                            <router-link 
+                            to="/guasto" class="menutext" onClick="app.setActive(1)" v-bind:class="[isActive==1 ? 'active' : '']">Segnala guasto</router-link>
+                        </li>
+                        <li class="btn">
+                            <router-link
+                            to="/nuovaprenotazione" class="menutext" onClick="app.setActive(2)" v-bind:class="[isActive==2 ? 'active' : '']">Nuova Prenotazione</router-link>
                         </li>
                     </ul>
                 </div>
             </nav>
-            <router-view></router-view>
+            <div class="main">
+                <router-view></router-view>
+            </div>
         </div>
         
 
         
     </div>
     <script src="variables.js"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
-    
     <script src="prenotazioni.js"></script>
     
 

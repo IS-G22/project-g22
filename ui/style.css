@@ -32,7 +32,6 @@ li{
 .container-app{
     display: flex;
     grid-template-columns: 20% 80%;
-    
 }
 
 .leftbar{
@@ -50,15 +49,39 @@ li{
 
 .btn{
     border: 1px solid blue;
+    background-color: rgba(18, 18, 209, 0.801);;
     padding: 2px;
     border-radius: 5px;
+    text-align: center;
+    margin: 10px;
+}
+
+.menutext, .menutext:active{
+    color: white;
+    text-decoration: none;
+}
+
+.active{
+    color:red;
 }
 
 .main{
     display: flex;
     flex-direction: column;
-    width: 100%;
     align-items: center;
+    width: 100%;
+}
+
+.list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.centrated{
+    align-items: center;
+    justify-content: center;
 }
 
 .prenotazione{
@@ -113,6 +136,20 @@ li{
 }
 
 .open:hover{
+    background-color: rgba(255, 0, 0, 0.336);
+}
+
+.new-prenot{
+    background-color: rgba(18, 18, 209, 0.801);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.full{
     background-color: red;
-    
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
 }

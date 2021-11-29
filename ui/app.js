@@ -7,5 +7,14 @@ const router=new VueRouter({
 })
 
 const app = new Vue({
-    router
+    router,
+    data: {
+        isActive: -1,
+    },
+    methods: {
+        setActive(nome=0){
+            this.isActive=nome;
+            console.log(this.isActive);
+        }
+    }
 }).$mount('#app')
