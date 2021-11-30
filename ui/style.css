@@ -56,8 +56,12 @@ li{
     margin: 10px;
 }
 
-.menutext, .menutext:active{
+.menutext{
     color: white;
+    text-decoration: none;
+}
+.menutext:active{
+    color: rgb(255, 129, 129);
     text-decoration: none;
 }
 

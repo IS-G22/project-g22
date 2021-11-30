@@ -9,12 +9,14 @@ const router=new VueRouter({
 const app = new Vue({
     router,
     data: {
-        isActive: -1,
+        isActive: window.location.hash,
     },
-    methods: {
-        setActive(nome=0){
-            this.isActive=nome;
-            console.log(this.isActive);
+    methods:{
+        setActive: function(){
+            this.isActive = window.location.hash;
         }
-    }
+    },
+    mounted:function(){
+        this.isActive = window.location.hash;
+    },
 }).$mount('#app')
