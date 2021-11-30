@@ -1,6 +1,7 @@
 const prenotazioni = {
-    template: `<div class="main">
-    <h2>Lista Prenotazioni</h2>
+    template: `<div class="main-content">
+    <h2 class="main-title">Lista Prenotazioni</h2>
+    <hr></hr>
     <div class="list" v-if="charged">
         <section class="prenotazione" v-for="pren in prenotazioni">
             <div class="box">
