@@ -24,7 +24,10 @@ const prenotazioni = {
 
         
     </div>
-    <div class="list centrated" v-else="charged">Caricamento prenotazioni in corso</div>
+        <div class="list centrated" v-else="charged">
+            <lottie-player src="./lottie/loading.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop autoplay></lottie-player>
+            <span>Caricamento prenotazioni in corso</span>
+        </div>
     </div>`,
     data(){
         return{
