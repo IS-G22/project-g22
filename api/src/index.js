@@ -38,10 +38,6 @@ app.listen(49146, () => {
     console.log("Lavandry API is running!");
 });
 
-app.get("/", (req, res) =>{
-    res.sendFile(path.join(__dirname, '../../ui/home.html'));
-});
-
 
 app.get("/api/tipo-lavaggio", async (_, response) => {
     response.send(await tipiLavaggio.find().toArray());
