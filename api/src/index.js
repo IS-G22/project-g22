@@ -47,6 +47,14 @@ app.get("/api/lavatrici", async (_, response) => {
     response.send(await lavatrici.find().toArray());
 });
 
+app.get("/api/lavatrici/apri", async (_, response) => {
+    let query = {
+        id_prenotazione:-1,
+    };
+    //manca la query
+    response.send("Lavatrice aperta con successo");
+});
+
 app.post("/api/lavatrici/add", async (request, response) => {
     response.send(await lavatrici.insertOne(request.query));
 });

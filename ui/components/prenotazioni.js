@@ -13,8 +13,8 @@ const prenotazioni = {
                     <div class="slot">{{pren.formatted_slot}}</div>
                 </div>
             </div>
-            <div class="delete">Cancella Prenotazione</div>
-            <div class="open">APRI SPORTELLO</div>
+            <div class="delete" @click="cancella(pren.id)">Cancella Prenotazione</div>
+            <div class="open" @click="apriSportello(pren.id)">APRI SPORTELLO</div>
         
         </section>
         <button v-if="full" class="new-prenot">
@@ -46,7 +46,7 @@ const prenotazioni = {
             .then((response)=>{
                 clearTimeout(timer);
                 this.prenotazioni=response.data;
-                console.log(this);
+                //console.log(this);
                 this.prenotazioni.forEach((el, index, arr)=>{
                     arr[index].formatted_data = formattaData(new Date(el.data));
                     arr[index].formatted_slot = formattaSlot(new Date(el.data), el.durata);
@@ -59,9 +59,17 @@ const prenotazioni = {
                 this.charged=true;
             });
         },
+        apriSportello(id){
+            axios.get(variables.API_URL+"lavatrici/apri?id_prenotazione="+id)
+            .then((response)=>{//apri un messaggio a schermo
+                console.log(response.data);
+            })
+        },
+        cancella(id){
+            console.log(id);
+        }
     },
     mounted:function(){
         this.refreshData();
-        console.log(this.data)
     }
 }
