@@ -1,8 +1,9 @@
 :root {
     --main-bg-color: rgba(86, 176, 228, 0.63);
     --components-bg-color:white;
-    --btn-bg-color:rgba(18, 18, 209, 0.801);
-    --btn-border-color: blue;
+    --btn-bg-color:rgba(0, 162, 255, 1);
+    --btn-border-color: rgba(0, 162, 255, 1);
+    --active-page: rgb(251, 255, 0);
 }
 
 html{
@@ -86,11 +87,24 @@ li{
     width: 70%;
 }
 
+.hidden{
+    display: none;
+}
+
+.language-wrapper{
+    margin-top: auto;
+    margin-bottom: 20px;
+
+}
+
+.language{
+    transform: scale(1.5);
+}
+
 .btn{
     border: 1px solid var(--btn-border-color);
     background-color: var(--btn-bg-color);
-    box-shadow: 1px 2px 8px 0px rgba(0, 0, 0, 0.8);
-    padding: 2px;
+    padding: 5px;
     border-radius: 5px;
     text-align: center;
     margin: 15px;
@@ -107,6 +121,15 @@ li{
     text-decoration: none;
 }
 
+.ita{
+    background:no-repeat url('./photo/ita.png');
+    background-size: 20px;
+}
+
+.eng{
+    background:no-repeat url('./photo/eng.png');
+    background-size: 20px;
+}
 
 .menutext:active{
     color: rgb(255, 129, 129);
@@ -114,7 +137,7 @@ li{
 }
 
 .active{
-    color:red;
+    color:var(--active-page);
 }
 
 .main{
@@ -136,6 +159,10 @@ li{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.red{
+    color:red;
 }
 
 .centrated{
@@ -229,6 +256,36 @@ li{
 }
 .background-menu{
     display: none;
+}
+
+.toggle{
+    background-color: rgb(197, 197, 197);
+    width: 40px;
+    height: 20px;
+    border-radius: 20px;
+    box-shadow:
+    0 0 0 2px rgb(197, 197, 197);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+
+.bubble{
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    transition: all 0.3s;
+}
+
+.bubble-on{
+    transform: translateX(20px);
+}
+
+.toggle-on{
+    background-color: rgba(0, 162, 255, 1)!important;
+    box-shadow:
+    0 0 0 2px rgba(0, 162, 255, 1);
 }
 
 @media only screen and (max-width: 700px) {

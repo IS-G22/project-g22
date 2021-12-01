@@ -40,7 +40,7 @@ const prenotazioni = {
         refreshData(){
             //timer per aspettare 
             let timer = setTimeout(()=>{
-                document.getElementById("caricamento").innerHTML="<div class='active ordered'>Ci sta mettendo troppo tempo! L'API potrebbe non essere raggiungibile.</div>";
+                document.getElementById("caricamento").innerHTML="<div class='red ordered'>Ci sta mettendo troppo tempo! L'API potrebbe essere non raggiungibile.</div>";
             },5000);
             axios.get(variables.API_URL+"prenotazioni/attive/utente?id_utente=1")
             .then((response)=>{

@@ -13,14 +13,23 @@ const app = new Vue({
     data: {
         isActive: window.location.hash,
         isMenuOpen: false,
+        isToggle : false,
+        isEng: false,
     },
     methods:{
         setActive: function(){
             this.isActive = window.location.hash;
             this.isMenuOpen = false;
+            
         },
         toggleMenu: function(){
             this.isMenuOpen= !this.isMenuOpen;
+        },
+        toggle: function(){
+            this.isToggle= !this.isToggle;
+        },
+        toggleLanguage: function(){
+            this.isEng= !this.isEng;
         }
     },
     mounted:function(){
