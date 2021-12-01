@@ -26,7 +26,7 @@ const prenotazioni = {
     </div>
         <div class="list centrated" v-else="charged">
             <lottie-player src="./lottie/loading.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop autoplay></lottie-player>
-            <span>Caricamento prenotazioni in corso...</span>
+            <span id="caricamento">Caricamento prenotazioni in corso...</span>
         </div>
     </div>`,
     data(){
@@ -38,8 +38,13 @@ const prenotazioni = {
     },
     methods:{
         refreshData(){
+            //timer per aspettare 
+            let timer = setTimeout(()=>{
+                document.getElementById("caricamento").innerHTML="<div class='active ordered'>Ci sta mettendo troppo tempo! L'API potrebbe non essere raggiungibile.</div>";
+            },5000);
             axios.get(variables.API_URL+"prenotazioni/attive/utente?id_utente=1")
             .then((response)=>{
+                clearTimeout(timer);
                 this.prenotazioni=response.data;
                 console.log(this);
                 this.prenotazioni.forEach((el, index, arr)=>{
