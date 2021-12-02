@@ -40,7 +40,7 @@ app.listen(49146, () => {
         global.tipiLavaggio = global.database.collection("tipo-lavaggio");
         global.lavatrici = global.database.collection("lavatrici");
         global.prenotazioni = global.database.collection("prenotazione_tipo_lavaggio");
-        slots = global.database.collection("slots");
+        global.slots = global.database.collection("slots");
     })
     console.log("Lavandry API is running!");
 });
