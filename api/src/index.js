@@ -10,6 +10,7 @@ const DATABASE = "lavandry";
 global.database;
 global.tipiLavaggio;
 global.lavatrici;
+global.lavatrici_sbloccate;
 global.prenotazioni;
 global.slots;
 //da aggiungere swagger per documentare l'API
@@ -39,20 +40,35 @@ app.listen(49146, () => {
 
         global.tipiLavaggio = global.database.collection("tipo-lavaggio");
         global.lavatrici = global.database.collection("lavatrici");
+        global.lavatrici_sbloccate = global.database.collection("lavatrici_sbloccate");
         global.prenotazioni = global.database.collection("prenotazione_tipo_lavaggio");
         global.slots = global.database.collection("slots");
     })
     console.log("Lavandry API is running!");
 });
-
+/**
+ * Tipi di Lavaggio
+ */
 app.get("/api/tipo-lavaggio", TipoLavaggio.list);
 
+/**
+ * Lavatrici
+ */
 app.get("/api/lavatrici", Lavatrici.lista);
 app.post("/api/lavatrici/add", Lavatrici.add);
-app.post("/api/lavatrici/apri", Lavatrici.apri);
+app.get("/api/lavatrici/apri", Lavatrici.apri);
+app.get("/api/lavatrici/blocca", Lavatrici.blocca);
+app.get("/api/lavatrici/sblocca", Lavatrici.sblocca);
 
+/**
+ * Prenotazioni
+ */
 app.get("/api/prenotazioni/attive/utente", Prenotazioni.prenotazioni_attive_utente);
 app.get("/api/prenotazioni/utente", Prenotazioni.prenotazioni_utente);
 
+/**
+ * Nuova Prenotazione
+ */
 app.get("/api/giorni-prenotabili", CreaPrenotazione.giorniPrenotabili);
-app.get("/api/v2/giorni-prenotabili", CreaPrenotazione.giorniPrenotabiliV2)
+app.get("/api/slot-disponibili", CreaPrenotazione.slotDisponibili)
+app.post("/api/crea-prenotazione", CreaPrenotazione.creaPrenotazione)

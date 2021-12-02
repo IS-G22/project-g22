@@ -3,3 +3,7 @@ exports.asDate = (inputFormat) => {
     var d = new Date(inputFormat)
     return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/')
 }
+
+exports.asTime = (inputFormat) => {
+    return inputFormat.getHours() + ":" + inputFormat.getMinutes();
+} 
