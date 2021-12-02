@@ -11,6 +11,7 @@ global.database;
 global.tipiLavaggio;
 global.lavatrici;
 global.prenotazioni;
+global.slots;
 //da aggiungere swagger per documentare l'API
 
 const cors = require('cors')
@@ -36,10 +37,10 @@ app.listen(49146, () => {
         global.database = client.db(DATABASE);
         console.log("Mongo DB Connection Successfull");
 
-        tipiLavaggio = database.collection("tipo-lavaggio");
-        lavatrici = database.collection("lavatrici");
-        Utenti = database.collection("lavatrici");
-        prenotazioni = database.collection("prenotazione_tipo_lavaggio");
+        global.tipiLavaggio = global.database.collection("tipo-lavaggio");
+        global.lavatrici = global.database.collection("lavatrici");
+        global.prenotazioni = global.database.collection("prenotazione_tipo_lavaggio");
+        slots = global.database.collection("slots");
     })
     console.log("Lavandry API is running!");
 });
