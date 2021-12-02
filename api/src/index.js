@@ -49,6 +49,7 @@ app.get("/api/tipo-lavaggio", TipoLavaggio.list);
 
 app.get("/api/lavatrici", Lavatrici.lista);
 app.post("/api/lavatrici/add", Lavatrici.add);
+app.post("/api/lavatrici/apri", Lavatrici.apri);
 
 app.get("/api/prenotazioni/attive/utente", Prenotazioni.prenotazioni_attive_utente);
 app.get("/api/prenotazioni/utente", Prenotazioni.prenotazioni_utente);
