@@ -6,12 +6,11 @@ const path = require('path');
 require('dotenv').config('./.env');//carico il file che contiene la password per connettersi al database
 const MongoClient = require("mongodb").MongoClient;
 const CONNECTION_STRING = "mongodb+srv://admin:" + process.env.DB_PASSWORD + "@lavandry.nmnxj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const DATABASE = "lavandry";//nome del database
-let database;
-let tipiLavaggio;
-let lavatrici;
-let prenotazioni;
-
+const DATABASE = "lavandry";
+global.database;
+global.tipiLavaggio;
+global.lavatrici;
+global.prenotazioni;
 //da aggiungere swagger per documentare l'API
 
 const cors = require('cors')
@@ -22,12 +21,19 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+var Prenotazioni = require("./prenotazioni");
+var CreaPrenotazione = require("./crea-prenotazione");
+var Lavatrici = require("./lavatrici");
+var TipoLavaggio = require("./tipo-lavaggio");
+
+
 app.listen(49146, () => {
     MongoClient.connect(CONNECTION_STRING, { useNewUrlParser: true }, (error, client) => {
         if (error) {
             console.log(error)
         }
-        database = client.db(DATABASE); 
+        global.database = client.db(DATABASE);
         console.log("Mongo DB Connection Successfull");
 
         tipiLavaggio = database.collection("tipo-lavaggio");
@@ -38,129 +44,13 @@ app.listen(49146, () => {
     console.log("Lavandry API is running!");
 });
 
+app.get("/api/tipo-lavaggio", TipoLavaggio.list);
 
-app.get("/api/tipo-lavaggio", async (_, response) => {
-    response.send(await tipiLavaggio.find().toArray());
-});
+app.get("/api/lavatrici", Lavatrici.lista);
+app.post("/api/lavatrici/add", Lavatrici.add);
 
-app.get("/api/lavatrici", async (_, response) => {
-    response.send(await lavatrici.find().toArray());
-});
+app.get("/api/prenotazioni/attive/utente", Prenotazioni.prenotazioni_attive_utente);
+app.get("/api/prenotazioni/utente", Prenotazioni.prenotazioni_utente);
 
-app.get("/api/lavatrici/apri", async (_, response) => {
-    let query = {
-        id_prenotazione:-1,
-    };
-    //manca la query
-    response.send("Lavatrice aperta con successo");
-});
-
-app.post("/api/lavatrici/add", async (request, response) => {
-    response.send(await lavatrici.insertOne(request.query));
-});
-
-app.get("/api/prenotazioni/attive/utente", async (request, response) => {
-    let query = {
-        id_utente: -1,
-        data_max_fine: { $gte: (new Date()).getTime() }
-    };
-
-
-    if (request.query.id_utente) {
-        query.id_utente = parseInt(request.query.id_utente);
-        response.send(await prenotazioni.find(query).toArray());
-    } else {
-        response.send("Inserisci il parametro <b>id_utente</b>")
-    }
-});
-
-
-app.get("/api/prenotazioni/utente", async (request, response) => {
-    let query = {
-        id_utente: -1,
-    };
-
-
-    if (request.query.id_utente) {
-        query.id_utente = parseInt(request.query.id_utente)
-        response.send(await prenotazioni.find(query).toArray());
-    } else {
-        response.send("Inserisci il parametro <b>id_utente</b>")
-    }
-});
-
-app.get("/api/giorni-prenotabili", async (request, response) => {
-    let id_tipo_lavaggio;
-    let tipoLavaggio;
-    let durata_lavaggio = null;
-    if (request.query.id_tipo_lavaggio) {
-
-        id_tipo_lavaggio = parseInt(request.query.id_tipo_lavaggio)
-        console.log(id_tipo_lavaggio)
-        tipoLavaggio = await tipiLavaggio.findOne({ id: id_tipo_lavaggio });
-        durata_lavaggio = tipoLavaggio.durata;
-        let prenotazioni_disponibili = await prenotazioni.find().toArray();
-        console.log(tipoLavaggio);
-    } else {
-        response.send("Inserisci il parametro <b>id_tipo_lavaggio</b>")
-    }
-
-    let oggi = new Date();
-    let a = Array.apply(null, { length: 14 }).map((_, number) => {
-        let date = new Date(oggi.getTime() + number * 24 * 60 * 60 * 1000);
-        return { i: number, display_date: convertDate(date), date: date }
-    });
-    response.send(JSON.stringify(a));
-});
-
-function convertDate(inputFormat) {
-    function pad(s) { return (s < 10) ? '0' + s : s; }
-    var d = new Date(inputFormat)
-    return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/')
-}
-
-
-
-
-
-
-app.get("/v2/giorni-prenotabili", async (request, response) => {
-    let id_tipo_lavaggio;
-    let tipoLavaggio;
-    let durata_lavaggio = null;
-    if (request.query.id_tipo_lavaggio) {
-
-        id_tipo_lavaggio = parseInt(request.query.id_tipo_lavaggio)
-        console.log(id_tipo_lavaggio)
-        tipoLavaggio = await tipiLavaggio.findOne({ id: id_tipo_lavaggio });
-        durata_lavaggio = tipoLavaggio.durata;
-        console.log(tipoLavaggio);
-
-        let oggi = new Date();
-        let a = Array.apply(null, { length: 14 }).map((_, number) => {
-            let date = new Date(oggi.getTime() + number * 24 * 60 * 60 * 1000);
-            return { i: number, display_date: convertDate(date), date: date }
-        });
-
-        let data_inizio_oggi = oggi.getTime();
-        let data_fine_oggi = (new Date(oggi.getTime() + 24 * 60 * 60 * 1000)).getTime();
-        let aa = await database.collection('prenotazione_successiva_differenza').distinct('id_lavatrice',
-            {
-                $or: [
-                    { differenza: { $gte: (durata_lavaggio + 30) * 60 * 1000 } },
-                    { differenza: null }
-                ],
-                date: { "$gte": data_inizio_oggi, "$lt": data_fine_oggi }
-            }
-        );
-
-        console.log(aa)
-        // let json = await aa.toArray();
-        let json = aa;
-        response.send(json);
-        console.log(json);
-
-    } else {
-        response.send("Inserisci il parametro <b>id_tipo_lavaggio</b>")
-    }
-})
+app.get("/api/giorni-prenotabili", CreaPrenotazione.giorniPrenotabili);
+app.get("/api/v2/giorni-prenotabili", CreaPrenotazione.giorniPrenotabiliV2)
