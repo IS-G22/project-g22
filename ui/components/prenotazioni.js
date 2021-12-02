@@ -1,26 +1,26 @@
 const prenotazioni = {
     template: `<div class="main-content">
-    <h2 class="main-title">Lista Prenotazioni</h2>
+    <h2 class="main-title">{{ $t("prenotazioni.titolo") }}</h2>
     <hr></hr>
     <div class="list" v-if="charged">
         <section class="prenotazione" v-for="pren in prenotazioni">
             <div class="box">
                 <img src="./photo/lavatrice.jpg" class="img-lavatrice"></img>
                 <div class="box-info">
-                    <h4>Prenotazione {{pren.id}}</h4>
-                    <h5>Lavatrice {{pren.id_lavatrice}}</h5>
-                    <div>{{pren.formatted_data}}</div>
+                    <h4>{{ $t("prenotazioni.pren.prenotazione") }} {{pren.id}}</h4>
+                    <h5>{{ $t("prenotazioni.pren.lavatrice") }} {{pren.id_lavatrice}}</h5>
+                    <div>{{$t("giorni")[pren.formatted_day]}} {{pren.formatted_date}} {{$t("mesi")[pren.formatted_month]}} {{pren.formatted_year}}</div>
                     <div class="slot">{{pren.formatted_slot}}</div>
                 </div>
             </div>
-            <div class="delete" @click="cancella(pren.id)">Cancella Prenotazione</div>
-            <div class="open" @click="apriSportello(pren.id)">APRI SPORTELLO</div>
+            <div class="delete" @click="cancella(pren.id)">{{ $t("prenotazioni.pren.cancella") }}</div>
+            <div class="open" @click="apriSportello(pren.id)">{{ $t("prenotazioni.pren.apri") }}</div>
         
         </section>
         <button v-if="full" class="new-prenot">
-            <router-link to="/nuovaprenotazione" class="menutext">Effettua nuova Prenotazione</router-link>
+            <router-link to="/nuovaprenotazione" class="menutext">{{ $t("prenotazioni.nuovaprenotazione") }}</router-link>
         </button>
-        <div v-else class="full">Hai raggiunto il numero massimo di Prenotazioni!</div>
+        <div v-else class="full">{{ $t("prenotazioni.maxpren") }}</div>
 
         
     </div>
@@ -48,7 +48,10 @@ const prenotazioni = {
                 this.prenotazioni=response.data;
                 //console.log(this);
                 this.prenotazioni.forEach((el, index, arr)=>{
-                    arr[index].formatted_data = formattaData(new Date(el.data));
+                    arr[index].formatted_day = (new Date(el.data)).getDay();
+                    arr[index].formatted_date = (new Date(el.data)).getDate();
+                    arr[index].formatted_month = (new Date(el.data)).getMonth();
+                    arr[index].formatted_year = (new Date(el.data)).getFullYear();
                     arr[index].formatted_slot = formattaSlot(new Date(el.data), el.durata);
                 })
                 if(this.prenotazioni.lenght<2){
