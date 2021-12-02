@@ -27,16 +27,15 @@
                     <ul>
                         <li class="btn">
                             <router-link to="/prenotazioni" class="menutext" onClick="app.setActive()"
-                                v-bind:class="[isActive=='#/prenotazioni' ? 'active' : '']">Prenotazioni</router-link>
+                                v-bind:class="[isActive=='#/prenotazioni' ? 'active' : '']">{{ $t("menu.prenotazioni") }}</router-link>
                         </li>
                         <li class="btn">
                             <router-link to="/guasto" class="menutext" onClick="app.setActive()"
-                                v-bind:class="[isActive=='#/guasto' ? 'active' : '']">Segnala guasto</router-link>
+                                v-bind:class="[isActive=='#/guasto' ? 'active' : '']">{{ $t("menu.guasto") }}</router-link>
                         </li>
                         <li class="btn">
                             <router-link to="/nuovaprenotazione" class="menutext" onClick="app.setActive()"
-                                v-bind:class="[isActive=='#/nuovaprenotazione' ? 'active' : '']">Nuova Prenotazione
-                            </router-link>
+                                v-bind:class="[isActive=='#/nuovaprenotazione' ? 'active' : '']">{{ $t("menu.nuovaprenotazione") }}</router-link>
                         </li>
                     </ul>
                 </div>
@@ -61,12 +60,17 @@
 
 
     </div>
+
+    
+    <script src="languages.js"></script>
     <script src="variables.js"></script>
 
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/vue-i18n@8"></script>
+    
     <script src="./components/componenti.js"></script>
     <script src="./components/prenotazioni.js"></script>
     <script src="./components/guasto.js"></script>
