@@ -1,56 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Home</title>
+    <title>Lavandry</title>
 </head>
+
 <body>
     <div id="app" class="app">
+        <div class="background-menu" v-bind:class="[isMenuOpen==true ? 'backgroundon' : '']" onClick="app.toggleMenu()">
+        </div>
         <header class="title">
             <h1>Lavandry</h1>
+            <div onClick="app.toggleMenu()"><img class="btn-menu" v-bind:class="[isMenuOpen==true ? 'btn-toggled' : '']"
+                    src="https://img.icons8.com/material-outlined/24/000000/menu--v3.png" /></div>
         </header>
         <div class="container-app">
-            <nav class="leftbar">
+            <nav class="leftbar" v-bind:class="[isMenuOpen==true ? 'menuopen' : '']">
                 <h2 class="menu-title">menu</h2>
-                <hr></hr>
+                <hr>
+                </hr>
                 <div>
                     <ul>
                         <li class="btn">
-                            <router-link 
-                            to="/prenotazioni" class="menutext"  onClick="app.setActive()"  v-bind:class="[isActive=='#/prenotazioni' ? 'active' : '']">Prenotazioni</router-link>
+                            <router-link to="/prenotazioni" class="menutext" onClick="app.setActive()"
+                                v-bind:class="[isActive=='#/prenotazioni' ? 'active' : '']">Prenotazioni</router-link>
                         </li>
                         <li class="btn">
-                            <router-link 
-                            to="/guasto" class="menutext" onClick="app.setActive()" v-bind:class="[isActive=='#/guasto' ? 'active' : '']">Segnala guasto</router-link>
+                            <router-link to="/guasto" class="menutext" onClick="app.setActive()"
+                                v-bind:class="[isActive=='#/guasto' ? 'active' : '']">Segnala guasto</router-link>
                         </li>
                         <li class="btn">
-                            <router-link
-                            to="/nuovaprenotazione" class="menutext" onClick="app.setActive()" v-bind:class="[isActive=='#/nuovaprenotazione' ? 'active' : '']">Nuova Prenotazione</router-link>
+                            <router-link to="/nuovaprenotazione" class="menutext" onClick="app.setActive()"
+                                v-bind:class="[isActive=='#/nuovaprenotazione' ? 'active' : '']">Nuova Prenotazione
+                            </router-link>
                         </li>
                     </ul>
                 </div>
+
+                <div class="language-wrapper">
+                    <div class="toggle toggle-on language" onClick="app.toggleLanguage()">
+                        <div class="bubble ita" v-bind:class="[isEng==true ? 'bubble-on eng' : '']"></div>
+                    </div>
+                </div>
+                
+                <div class="toggle hidden" onClick="app.toggle()" v-bind:class="[isToggle==true ? 'toggle-on' : '']">
+                    <div class="bubble" v-bind:class="[isToggle==true ? 'bubble-on' : '']"></div>
+                </div>
+                <!-- <toggle v-bind:prop='isToggle' v-bind:funzione='toggle'></toggle> -->
             </nav>
             <div class="main">
                 <router-view></router-view>
             </div>
         </div>
-        
 
-        
+
+
+
     </div>
     <script src="variables.js"></script>
-    
+
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
-    <script src="prenotazioni.js"></script>
+    <script src="./components/componenti.js"></script>
+    <script src="./components/prenotazioni.js"></script>
+    <script src="./components/guasto.js"></script>
+    <script src="./components/nuovaprenotazione.js"></script>
     
+
+
 
 
     <script src="app.js"></script>
-    
+
 </body>
+
 </html>
