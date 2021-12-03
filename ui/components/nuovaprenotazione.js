@@ -98,7 +98,7 @@ const nuovaprenotazione = {
                 //formattiamo i giorni!
                 let oggi = new Date();
                 this.giorni_disponibili.forEach((element, index, arr) => {
-                    let giorno= oggi.addDays(element.i);
+                    let giorno= oggi.addDays(element.giorno);
                     arr[index].formatted_day = giorno.getDay();
                     arr[index].formatted_date = giorno.getDate();
                     arr[index].formatted_month = giorno.getMonth();
@@ -113,7 +113,7 @@ const nuovaprenotazione = {
             let timer = setTimeout(()=>{
                 this.fullStatus='failure';
             },5000);
-            axios.get(variables.API_URL+"slot-disponibili?id_tipo_lavaggio="+this.tipo_lavaggio_selezionato.id+"&giorno="+this.giorno_selezionato.i)
+            axios.get(variables.API_URL+"slot-disponibili?id_tipo_lavaggio="+this.tipo_lavaggio_selezionato.id+"&giorno="+this.giorno_selezionato.giorno)
             .then((response)=>{
                 clearTimeout(timer);
                 //SISTEMARE L'API!
