@@ -83,8 +83,7 @@ const viewTecnico = {
             let timer = setTimeout(() => {
                 document.getElementById("caricamento").innerHTML = "<div class='red ordered'>Ci sta mettendo troppo tempo! L'API potrebbe essere non raggiungibile.</div>";
             }, 5000);
-            axios.get("/api/file-statici/lavatrici.json")
-                // axios.get(variables.API_URL + "lavatrici")
+            axios.get(variables.API_URL + "lavatrici")
                 .then((response) => {
                     clearTimeout(timer);
                     this.lavatrici = response.data;
