@@ -1,4 +1,8 @@
 exports.prenotazioni_utente = async (request, response) => {
+    if (!global.database) {
+        response.send({ error: "DataBase non raggiungibile" })
+        return;
+    }
     let query = {
         id_utente: -1,
     };
@@ -13,6 +17,10 @@ exports.prenotazioni_utente = async (request, response) => {
 }
 
 exports.prenotazioni_attive_utente = async (request, response) => {
+    if (!global.database) {
+        response.send({ error: "DataBase non raggiungibile" })
+        return;
+    }
     let query = {
         id_utente: -1,
         data_max_fine: { $gte: (new Date()).getTime() }
@@ -28,6 +36,11 @@ exports.prenotazioni_attive_utente = async (request, response) => {
 }
 
 exports.prenotazioni_cancella = async (request, response) => {
+    if (!global.database) {
+        response.send({ error: "DataBase non raggiungibile" })
+        return;
+    }
+    response.send({ status: 'ok' })
     /*let query = {
         id_prenotazione: -1,
     };
