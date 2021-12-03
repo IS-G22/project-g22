@@ -45,16 +45,20 @@ exports.blocca = async (request, response) => {
     id_lavatrice = parseInt(request.query.id_lavatrice);
     let lavatrice = await lavatrici.findOne({ id: id_lavatrice });
 
-    if (lavatrice.stato == this.SBLOCCATA) {
+    if (lavatrice)
+        if (lavatrice.stato == this.SBLOCCATA) {
 
-        lavatrici.updateOne({ id: id_lavatrice }, { $set: { stato: this.BLOCCATA } }, { upsert: false });
+            lavatrici.updateOne({ id: id_lavatrice }, { $set: { stato: this.BLOCCATA } }, { upsert: false });
 
-        cancellaSlotFuturi(id_lavatrice);
+            cancellaSlotFuturi(id_lavatrice);
 
-        response.send("Lavatrice bloccata");
-    }
+            response.send({ status: 'ok', stato: this.BLOCCATA });
+        }
+        else {
+            response.send({ status: 'ok', msg: 'lavatrice già bloccata', stato: this.BLOCCATA })
+        }
     else {
-        response.send({ status: 'ok', msg: 'lavatrice già bloccata' })
+        response.send({ status: 'error', err: 'lavatrice inesistente' })
     }
 }
 
@@ -71,24 +75,28 @@ exports.sblocca = async (request, response) => {
     id_lavatrice = parseInt(request.query.id_lavatrice);
     let lavatrice = await lavatrici.findOne({ id: id_lavatrice });
 
-    if (lavatrice.stato == this.BLOCCATA) {
+    if (lavatrice)
+        if (lavatrice.stato == this.BLOCCATA) {
 
-        lavatrici.updateOne({ id: id_lavatrice }, { $set: { stato: this.SBLOCCATA } }, { upsert: false });
+            lavatrici.updateOne({ id: id_lavatrice }, { $set: { stato: this.SBLOCCATA } }, { upsert: false });
 
-        await cancellaSlotFuturi(id_lavatrice);
+            await cancellaSlotFuturi(id_lavatrice);
 
-        let inserito = await slots.insertOne({
-            data_inizio: (new Date()).getTime(),
-            data_fine: 9999999999999.0,
-            stato: "libero",
-            id_lavatrice: id_lavatrice
-        });
-        console.log("inserito: ", inserito);
+            let inserito = await slots.insertOne({
+                data_inizio: (new Date()).getTime(),
+                data_fine: 9999999999999.0,
+                stato: "libero",
+                id_lavatrice: id_lavatrice
+            });
+            console.log("inserito: ", inserito);
 
-        response.send("Lavatrice sbloccata");
-    }
+            response.send({ status: 'ok', stato: this.SBLOCCATA });
+        }
+        else {
+            response.send({ status: 'ok', msg: 'lavatrice già sbloccata', stato: this.SBLOCCATA })
+        }
     else {
-        response.send({ status: 'ok', msg: 'lavatrice già sbloccata' })
+        response.send({ status: 'error', err: 'lavatrice inesistente' })
     }
 }
 

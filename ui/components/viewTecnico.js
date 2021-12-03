@@ -7,19 +7,18 @@ const lavatrice = {
             <h5>Lavatrice {{ lavatrice.id }}</h5>
             <p> Stato: {{lavatrice.stato}} </p>
         </div>
-        <button @click="toggleClicca">{{this.labelPulsante}}</button>
+        <button @click="toggleClicca">{{ $t("lavatrice.bottone." +lavatrice.stato)}}</button>
     </div>`,
     data() {
         return {
             labelPulsante: 'Blocca',
-            stato: "c",
-            id: 0,
-            openStatus:'er'
+            openStatus: 'er'
         }
     },
     methods: {
-        toggleClicca: () => {
+        toggleClicca() {
             let url = '';
+            console.log(this)
             switch (this.lavatrice.stato) {
                 case 'bloccata':
                     url = 'sblocca';
@@ -32,15 +31,20 @@ const lavatrice = {
                 this.openStatus = 'failure';
             }, 5000);
             axios.get(variables.API_URL + "lavatrici/" + url + "?id_lavatrice=" + this.lavatrice.id)
-                .then((response) => {//apri un messaggio a schermo
+                .then((response) => {
                     clearTimeout(timer);
                     //console.log(response);
-                    if (response.data.status = 'err') {
+                    if (response.data.status == 'err') {
                         this.openStatus = 'failure';
+                        console.log("e", this.lavatrice.stato)
+
                     } else {
+                        if (response.data.stato) {
+                            this.lavatrice.stato = response.data.stato;
+                        }
+                        console.log(this.lavatrice.stato)
                         this.openStatus = 'success';
                     }
-
                 })
         }
     },
