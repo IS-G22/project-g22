@@ -26,3 +26,17 @@ exports.prenotazioni_attive_utente = async (request, response) => {
         response.send("Inserisci il parametro <b>id_utente</b>")
     }
 }
+
+exports.prenotazioni_cancella = async (request, response) => {
+    /*let query = {
+        id_prenotazione: -1,
+    };
+
+
+    if (request.query.id_utente) {
+        query.id_utente = parseInt(request.query.id_utente);
+        response.send(await prenotazioni.find(query).toArray());
+    } else {
+        response.send("Inserisci il parametro <b>id_utente</b>")
+    }*/
+}

@@ -1,7 +1,7 @@
 const languages =
 {
     en: {
-      giorni:["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      giorni:[ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
       mesi:["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
       menu: {
         prenotazioni: "Reservations",
@@ -18,11 +18,13 @@ const languages =
           cancella:"",
           apri:"",
         },
+        confermacancella:"",
         nuovaprenotazione:"",
+        maxpren:"",
       }
     },
     it: {
-      giorni:["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"],
+      giorni:["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"],
       mesi:["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"],
       menu: {
         prenotazioni: "Prenotazioni",
@@ -39,8 +41,16 @@ const languages =
           cancella:"Cancella Prenotazione",
           apri:"APRI SPORTELLO",
         },
+        confermatesto:"Sei sicuro che vuoi cancellare questa prenotazione?",
+        confermacancella:"Conferma",
+        annulla:"Annulla",
+        successocancellazione:"La Prenotazione è stata cancellata con successo!",
+        fallimentocancellazione:"ERRORE! Non è stato possibile cancellare la prenotazione!",
+        successoapertura:"La Lavatrice è stata aperta con successo!",
+        fallimentoapertura:"ERRORE! Non è stato possibile aprire la lavatrice!",
         nuovaprenotazione:"Effettua nuova Prenotazione",
-        maxpren:"Hai raggiunto il numero massimo di Prenotazioni!"
+        maxpren:"Hai raggiunto il numero massimo di Prenotazioni!",
+        caricamento:"Caricamento prenotazioni in corso..."
       }
     }
 }

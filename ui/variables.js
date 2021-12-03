@@ -2,7 +2,16 @@ const variables ={
     API_URL:"http://localhost:49146/api/",
 }
 
-function formattaSlot(data_init, durata){
-    let data_fine = new Date(data_init.getTime() + durata*60000);
-    return `${data_init.getHours()}:${data_init.getSeconds()} - ${data_fine.getHours()}:${data_fine.getSeconds()}`;
+function addZero(min){
+    if(min<=9){
+        return '0'+min;
+    }else{
+        return min;
+    }
+}
+
+function formattaSlot(data_init, data_fine){
+    let minuti_init=data_init.getMinutes();
+    let minuti_fine=data_fine.getMinutes();
+    return `${data_init.getHours()}:${addZero(minuti_init)} - ${data_fine.getHours()}:${addZero(minuti_fine)}`;
 }

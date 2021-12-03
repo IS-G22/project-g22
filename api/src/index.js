@@ -55,7 +55,7 @@ app.get("/api/tipo-lavaggio", TipoLavaggio.list);
  * Lavatrici
  */
 app.get("/api/lavatrici", Lavatrici.lista);
-app.post("/api/lavatrici/add", Lavatrici.add);
+//app.post("/api/lavatrici/add", Lavatrici.add);
 app.get("/api/lavatrici/apri", Lavatrici.apri);
 app.get("/api/lavatrici/blocca", Lavatrici.blocca);
 app.get("/api/lavatrici/sblocca", Lavatrici.sblocca);
@@ -65,6 +65,7 @@ app.get("/api/lavatrici/sblocca", Lavatrici.sblocca);
  */
 app.get("/api/prenotazioni/attive/utente", Prenotazioni.prenotazioni_attive_utente);
 app.get("/api/prenotazioni/utente", Prenotazioni.prenotazioni_utente);
+//app.delete("/api/prenotazioni/cancella", Prenotazioni.prenotazioni_cancella);
 
 /**
  * Nuova Prenotazione
