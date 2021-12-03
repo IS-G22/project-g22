@@ -22,7 +22,7 @@ exports.giorniPrenotabili = async (request, response) => {
                 { "id_lavatrice": { $in: await getLavatriciSbloccate() } }
             ]
         }).toArray()
-        let oggi = new Date(data_inizio_ricerca.getUTCDate());
+        let oggi = new Date(data_inizio_ricerca.toISOString());
         let array_giorni = Array.apply(null, { length: 14 }).map((_, number) => {
             let date = new Date(oggi.getTime() + Formatter.DtoMs(number));
             return { giorno: number, date: date }
@@ -114,7 +114,7 @@ exports.slotDisponibili = async (request, response) => {
 
     let array_slots = Array.apply(null, { length: numero_slot }).map((_, number) => {
         let date = new Date(tempo_inizio.getTime() + Formatter.HtoMs(number));
-        return { slot: date.getTime() }
+        return { slot: date.getTime(), date: date }
     });
     let slot_liberi = array_slots.filter((value, index) => {
         return (slots.some((slot) => {

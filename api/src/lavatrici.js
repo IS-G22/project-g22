@@ -11,7 +11,7 @@ exports.add = async (request, response) => {
 exports.apri = async (request, response) => {
     let id_lavatrice = -1;
     if (!request.query.id_lavatrice) {
-        response.send({ error: "Inserisci il parametro <b>id_lavatrice</b>", status:'err' })
+        response.send({ error: "Inserisci il parametro <b>id_lavatrice</b>", status: 'err' })
         return;
     }
     id_lavatrice = parseInt(request.query.id_lavatrice);
@@ -30,7 +30,7 @@ exports.blocca = async (request, response) => {
 
     lavatrici.updateOne({ id: id_lavatrice }, { $set: { stato: this.BLOCCATA } }, { upsert: true });
 
-    cancellaSlotFuturi(id_lavatrice);
+    // cancellaSlotFuturi(id_lavatrice);
 
     response.send("Lavatrice bloccata");
 
@@ -46,15 +46,15 @@ exports.sblocca = async (request, response) => {
 
     lavatrici.updateOne({ id: id_lavatrice }, { $set: { stato: this.SBLOCCATA } }, { upsert: true });
 
-    cancellaSlotFuturi(id_lavatrice);
+    // cancellaSlotFuturi(id_lavatrice);
 
-    let inserito = await slots.insertOne({
-        data_inizio: (new Date()).getTime(),
-        data_fine: 9999999999999,
-        stato: "libero",
-        id_lavatrice: id_lavatrice
-    });
-    console.log("inserito: ", inserito);
+    // let inserito = await slots.insertOne({
+    //     data_inizio: (new Date()).getTime(),
+    //     data_fine: 9999999999999,
+    //     stato: "libero",
+    //     id_lavatrice: id_lavatrice
+    // });
+    // console.log("inserito: ", inserito);
 
     response.send("Lavatrice sbloccata");
 }
@@ -71,7 +71,7 @@ async function cancellaSlotFuturi(id_lavatrice) {
         {
             $and: [
                 { "id_lavatrice": id_lavatrice },
-                { "data_fine": { $gte: (new Date()).getTime() } }
+                { "data_fine": { $gt: (new Date()).getTime() } }
             ]
         },
         { $set: { data_fine: (new Date()).getTime() } },

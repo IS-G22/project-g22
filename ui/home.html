@@ -27,15 +27,24 @@
                     <ul>
                         <li class="btn">
                             <router-link to="/prenotazioni" class="menutext" onClick="app.setActive()"
-                                v-bind:class="[isActive=='#/prenotazioni' ? 'active' : '']">{{ $t("menu.prenotazioni") }}</router-link>
+                                v-bind:class="[isActive=='#/prenotazioni' ? 'active' : '']">{{ $t("menu.prenotazioni")
+                                }}</router-link>
                         </li>
                         <li class="btn">
                             <router-link to="/guasto" class="menutext" onClick="app.setActive()"
-                                v-bind:class="[isActive=='#/guasto' ? 'active' : '']">{{ $t("menu.guasto") }}</router-link>
+                                v-bind:class="[isActive=='#/guasto' ? 'active' : '']">{{ $t("menu.guasto") }}
+                            </router-link>
                         </li>
                         <li class="btn">
                             <router-link to="/nuovaprenotazione" class="menutext" onClick="app.setActive()"
-                                v-bind:class="[isActive=='#/nuovaprenotazione' ? 'active' : '']">{{ $t("menu.nuovaprenotazione") }}</router-link>
+                                v-bind:class="[isActive=='#/nuovaprenotazione' ? 'active' : '']">{{
+                                $t("menu.nuovaprenotazione") }}</router-link>
+                        </li>
+                        <li class="btn">
+                            <router-link to="/tecnico" class="menutext" onClick="app.setActive()"
+                                v-bind:class="[isActive=='#/tecnico' ? 'active' : '']">{{
+                                $t("menu.tecnico") }}
+                            </router-link>
                         </li>
                     </ul>
                 </div>
@@ -45,7 +54,7 @@
                         <div class="bubble ita" v-bind:class="[isEng==true ? 'bubble-on eng' : '']"></div>
                     </div>
                 </div>
-                
+
                 <div class="toggle hidden" onClick="app.toggle()" v-bind:class="[isToggle==true ? 'toggle-on' : '']">
                     <div class="bubble" v-bind:class="[isToggle==true ? 'bubble-on' : '']"></div>
                 </div>
@@ -61,7 +70,7 @@
 
     </div>
 
-    
+
     <script src="languages.js"></script>
     <script src="variables.js"></script>
 
@@ -70,12 +79,16 @@
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
     <script src="https://unpkg.com/vue-i18n@8"></script>
-    
+
     <script src="./components/componenti.js"></script>
     <script src="./components/prenotazioni.js"></script>
     <script src="./components/guasto.js"></script>
     <script src="./components/nuovaprenotazione.js"></script>
-    
+    <script src="./components/viewTecnico.js"></script>
+    <!-- <script src="./components/viewTecnico.vue"></script> -->
+    <!-- <script src="./components/lavatrice.js"></script> -->
+    <!-- <script src="./components/lavatrice.vue"></script> -->
+
     <script src="app.js"></script>
 
 </body>
