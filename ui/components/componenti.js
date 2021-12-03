@@ -9,3 +9,16 @@ Vue.component('toggle',{
         console.log(this.funzione);
     }
 })
+
+
+Vue.component('modal',{
+    props:['isModalOpen', 'closeModal'],
+
+    template: 
+    `<div class="background-modal" v-bind:class="[isModalOpen==true ? 'background-modalon' : '']" @click="closeModal">
+        <div class="modal-box" v-bind:class="[isModalOpen==true ? 'modal-box-on' : '']" @click="(event)=>{event.stopPropagation()}"><slot></slot></div>
+    </div>`,
+    mounted:function(){
+       console.log(this.isModalOpen);
+    }
+})

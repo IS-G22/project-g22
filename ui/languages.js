@@ -18,7 +18,9 @@ const languages =
           cancella:"",
           apri:"",
         },
+        confermacancella:"",
         nuovaprenotazione:"",
+        maxpren:"",
       }
     },
     it: {
@@ -39,6 +41,11 @@ const languages =
           cancella:"Cancella Prenotazione",
           apri:"APRI SPORTELLO",
         },
+        confermatesto:"Sei sicuro che vuoi cancellare questa prenotazione?",
+        confermacancella:"Conferma",
+        annulla:"Annulla",
+        successocancellazione:"La Prenotazione è stata cancellata con successo!",
+        fallimentocancellazione:"ERRORE! Non è stato possibile cancellare la prenotazione!",
         nuovaprenotazione:"Effettua nuova Prenotazione",
         maxpren:"Hai raggiunto il numero massimo di Prenotazioni!"
       }

@@ -65,6 +65,7 @@ app.get("/api/lavatrici/sblocca", Lavatrici.sblocca);
  */
 app.get("/api/prenotazioni/attive/utente", Prenotazioni.prenotazioni_attive_utente);
 app.get("/api/prenotazioni/utente", Prenotazioni.prenotazioni_utente);
+//app.delete("/api/prenotazioni/cancella", Prenotazioni.prenotazioni_cancella);
 
 /**
  * Nuova Prenotazione
