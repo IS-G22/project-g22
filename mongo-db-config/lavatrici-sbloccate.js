@@ -3,6 +3,6 @@ db.createView(
     "lavatrici_sbloccate",
     "lavatrici",
     [
-        { "$match": { "stato": "sbloccata" } }
+        { "$match": { $ne: { "stato": "bloccata" } } }
     ]
 )
