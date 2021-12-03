@@ -40,6 +40,12 @@ const prenotazioni = {
                 <div class="box2" v-if="openStatus=='opening'">
                     <lottie-player src="./lottie/loading.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop autoplay></lottie-player>
                 </div>
+                <div class="box2" v-if="openStatus=='success'">
+                    <p>{{$t("prenotazioni.successoapertura")}}</p><button class="new-prenot" @click="toggleSportello">{{$t("prenotazioni.confermacancella")}}</button>
+                </div>
+                <div class="box2" v-if="openStatus=='failure'">
+                    <p>{{$t("prenotazioni.fallimentoapertura")}}</p><button class="new-prenot" @click="toggleSportello">{{$t("prenotazioni.confermacancella")}}</button>
+                </div>
             </modal>
         
         </section>
@@ -52,7 +58,7 @@ const prenotazioni = {
     </div>
         <div class="list centrated" v-else="charged">
             <lottie-player src="./lottie/loading.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop autoplay></lottie-player>
-            <span id="caricamento">Caricamento prenotazioni in corso...</span>
+            <span id="caricamento">{{ $t("prenotazioni.caricamento") }}</span>
         </div>
     </div>`,
     data(){
@@ -131,9 +137,18 @@ const prenotazioni = {
             this.openModalOpen = !this.openModalOpen;
             this.openStatus='opening';
             this.deletePrenotazione=prenotazione;
+            let timer = setTimeout(()=>{
+                this.openStatus='failure';
+            },5000);
             axios.get(variables.API_URL+"lavatrici/apri?id_prenotazione="+prenotazione)
             .then((response)=>{//apri un messaggio a schermo
-                console.log(response);
+                clearTimeout(timer);
+                //console.log(response);
+                if(response.data.status='err'){
+                    this.openStatus='failure';
+                }else{
+                    this.openStatus='success';
+                }
 
             })
         },

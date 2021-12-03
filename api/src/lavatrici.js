@@ -11,7 +11,7 @@ exports.add = async (request, response) => {
 exports.apri = async (request, response) => {
     let id_lavatrice = -1;
     if (!request.query.id_lavatrice) {
-        response.send({ error: "Inserisci il parametro <b>id_lavatrice</b>" })
+        response.send({ error: "Inserisci il parametro <b>id_lavatrice</b>", status:'err' })
         return;
     }
     id_lavatrice = parseInt(request.query.id_lavatrice);

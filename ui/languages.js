@@ -46,8 +46,11 @@ const languages =
         annulla:"Annulla",
         successocancellazione:"La Prenotazione è stata cancellata con successo!",
         fallimentocancellazione:"ERRORE! Non è stato possibile cancellare la prenotazione!",
+        successoapertura:"La Lavatrice è stata aperta con successo!",
+        fallimentoapertura:"ERRORE! Non è stato possibile aprire la lavatrice!",
         nuovaprenotazione:"Effettua nuova Prenotazione",
-        maxpren:"Hai raggiunto il numero massimo di Prenotazioni!"
+        maxpren:"Hai raggiunto il numero massimo di Prenotazioni!",
+        caricamento:"Caricamento prenotazioni in corso..."
       }
     }
 }
