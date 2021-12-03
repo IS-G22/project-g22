@@ -55,7 +55,7 @@ app.get("/api/tipo-lavaggio", TipoLavaggio.list);
  * Lavatrici
  */
 app.get("/api/lavatrici", Lavatrici.lista);
-app.post("/api/lavatrici/add", Lavatrici.add);
+//app.post("/api/lavatrici/add", Lavatrici.add);
 app.get("/api/lavatrici/apri", Lavatrici.apri);
 app.get("/api/lavatrici/blocca", Lavatrici.blocca);
 app.get("/api/lavatrici/sblocca", Lavatrici.sblocca);

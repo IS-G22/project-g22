@@ -18,7 +18,7 @@ const prenotazioni = {
         
         </section>
         <button v-if="full" class="new-prenot">
-            <router-link to="/nuovaprenotazione" class="menutext">{{ $t("prenotazioni.nuovaprenotazione") }}</router-link>
+            <router-link to="/nuovaprenotazione" onClick="app.setActive()" class="menutext">{{ $t("prenotazioni.nuovaprenotazione") }}</router-link>
         </button>
         <div v-else class="full">{{ $t("prenotazioni.maxpren") }}</div>
 
@@ -48,11 +48,14 @@ const prenotazioni = {
                 this.prenotazioni=response.data;
                 //console.log(this);
                 this.prenotazioni.forEach((el, index, arr)=>{
-                    arr[index].formatted_day = (new Date(el.data)).getDay();
-                    arr[index].formatted_date = (new Date(el.data)).getDate();
-                    arr[index].formatted_month = (new Date(el.data)).getMonth();
-                    arr[index].formatted_year = (new Date(el.data)).getFullYear();
-                    arr[index].formatted_slot = formattaSlot(new Date(el.data), el.durata);
+                    //console.log(el)
+                    let data = new Date(el.data_inizio);
+                    let data2 = new Date(el.data_fine);
+                    arr[index].formatted_day = (data).getDay();
+                    arr[index].formatted_date = (data).getDate();
+                    arr[index].formatted_month = (data).getMonth();
+                    arr[index].formatted_year = (data).getFullYear();
+                    arr[index].formatted_slot = formattaSlot(data, data2);
                 })
                 if(this.prenotazioni.lenght<2){
                     this.full= false;

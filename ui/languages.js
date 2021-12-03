@@ -1,7 +1,7 @@
 const languages =
 {
     en: {
-      giorni:["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      giorni:[ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
       mesi:["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
       menu: {
         prenotazioni: "Reservations",
@@ -22,7 +22,7 @@ const languages =
       }
     },
     it: {
-      giorni:["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"],
+      giorni:["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"],
       mesi:["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"],
       menu: {
         prenotazioni: "Prenotazioni",
