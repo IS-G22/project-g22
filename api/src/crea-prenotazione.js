@@ -25,8 +25,9 @@ exports.giorniPrenotabili = async (request, response) => {
         let oggi = new Date(data_inizio_ricerca.getUTCDate());
         let array_giorni = Array.apply(null, { length: 14 }).map((_, number) => {
             let date = new Date(oggi.getTime() + Formatter.DtoMs(number));
-            return { i: number, display_date: Formatter.asDate(date), date: date }
+            return { giorno: number, date: date }
         });
+        //todo check
 
         array_giorni.filter((value, index) => {
             console.log(value);
@@ -113,7 +114,7 @@ exports.slotDisponibili = async (request, response) => {
 
     let array_slots = Array.apply(null, { length: numero_slot }).map((_, number) => {
         let date = new Date(tempo_inizio.getTime() + Formatter.HtoMs(number));
-        return { i: number, display_date: Formatter.asTime(date), date: date, slot: date.getTime() }
+        return { slot: date.getTime() }
     });
     let slot_liberi = array_slots.filter((value, index) => {
         return (slots.some((slot) => {
@@ -123,7 +124,7 @@ exports.slotDisponibili = async (request, response) => {
             //     fine_slot: slot.data_fine,
             //     fine: value.date.getTime() + Formatter.MtoMs(durata_lavaggio + 30),
             // })
-            return (slot.data_inizio <= value.date.getTime() && slot.data_fine >= value.date.getTime() + Formatter.MtoMs(durata_lavaggio + 30))
+            return (slot.data_inizio <= value.slot && slot.data_fine >= value.slot + Formatter.MtoMs(durata_lavaggio + 30))
         }));
     })
 
