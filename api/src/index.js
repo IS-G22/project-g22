@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-var Prenotazioni = require("./prenotazioni");
+var Prenotazioni = require("./prenotazioni-v2");
 var CreaPrenotazione = require("./crea-prenotazione");
 var Lavatrici = require("./lavatrici");
 var TipoLavaggio = require("./tipo-lavaggio");

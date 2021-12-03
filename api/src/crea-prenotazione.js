@@ -1,5 +1,6 @@
 var Formatter = require('./tools/formatter')
-
+exports.LIBERO = 'libero';
+exports.OCCUPATO = 'occupato';
 exports.giorniPrenotabili = async (request, response) => {
     let id_tipo_lavaggio;
     let tipoLavaggio;
@@ -11,19 +12,19 @@ exports.giorniPrenotabili = async (request, response) => {
         durata_lavaggio = tipoLavaggio.durata;
 
         let data_inizio_ricerca = new Date();
-        let data_fine_ricerca = new Date(data_inizio_ricerca.getTime() + 14 * 24 * 60 * 60 * 1000);
+        let data_fine_ricerca = new Date(data_inizio_ricerca.getTime() + Formatter.DtoMs(14));
 
 
         let slots = await database.collection('slot_liberi_attivi').find({
             $and: [
-                { "data_inizio": { "$lte": data_fine_ricerca.getTime() - durata_lavaggio } },
-                { "data_fine": { "$gte": data_inizio_ricerca.getTime() + durata_lavaggio } },
-                { "id_lavatrice": { $in: await lavatrici_sbloccate.distinct('id') } }
+                { "data_inizio": { "$lte": data_fine_ricerca.getTime() - Formatter.MtoMs(durata_lavaggio + 30) } },
+                { "data_fine": { "$gte": data_inizio_ricerca.getTime() + Formatter.MtoMs(durata_lavaggio + 30) } },
+                { "id_lavatrice": { $in: await getLavatriciSbloccate() } }
             ]
         }).toArray()
         let oggi = new Date(data_inizio_ricerca.getUTCDate());
         let array_giorni = Array.apply(null, { length: 14 }).map((_, number) => {
-            let date = new Date(oggi.getTime() + number * 24 * 60 * 60 * 1000);
+            let date = new Date(oggi.getTime() + Formatter.DtoMs(number));
             return { i: number, display_date: Formatter.asDate(date), date: date }
         });
 
@@ -31,7 +32,7 @@ exports.giorniPrenotabili = async (request, response) => {
             console.log(value);
             return (slots.some((slot) => {
                 console.log(slot)
-                return (slot.data_inizio <= value.date.getTime() && slot.data_fine >= value.date.getTime() + durata_lavaggio)
+                return (slot.data_inizio <= value.date.getTime() && slot.data_fine >= value.date.getTime() + Formatter.MtoMs(durata_lavaggio + 30))
             }));
         })
 
@@ -89,40 +90,44 @@ exports.slotDisponibili = async (request, response) => {
      * cerco gli slot disponibili per questo giorno:
      */
 
-    let tempo_inizio = new Date((new Date()).getTime() + giorno * 24 * 60 * 60 * 1000);
+    let tempo_inizio = new Date((new Date()).getTime() + giorno * Formatter.DtoMs(1));
 
     tempo_inizio = new Date(tempo_inizio.toDateString())
     tempo_inizio.setHours(8);
-    let tempo_fine = new Date(tempo_inizio.getTime() + 24 * 60 * 60 * 1000);
+    let tempo_fine = new Date(tempo_inizio.getTime() + Formatter.DtoMs(1));
 
     if (giorno == 0) tempo_inizio.setHours((new Date()).getHours() + 1)
 
     let slots = await database.collection('slot_liberi_attivi').find({
         $and: [
-            { "data_inizio": { "$lte": tempo_fine.getTime() - durata_lavaggio } },
-            { "data_fine": { "$gte": tempo_inizio.getTime() + durata_lavaggio } },
-            { "id_lavatrice": { $in: await lavatrici_sbloccate.distinct('id') } }
+            { "data_inizio": { "$lte": tempo_fine.getTime() - Formatter.MtoMs(durata_lavaggio + 30) } },
+            { "data_fine": { "$gte": tempo_inizio.getTime() + Formatter.MtoMs(durata_lavaggio + 30) } },
+            { "id_lavatrice": { $in: await getLavatriciSbloccate() } }
         ]
     }).toArray()
+
+    // console.log("Slot liberi attivi: ", slots)
 
     let ora_inizio = tempo_inizio.getHours()
     let numero_slot = 24 - ora_inizio;
 
-    console.log(tempo_inizio)
-
     let array_slots = Array.apply(null, { length: numero_slot }).map((_, number) => {
-        let date = new Date(tempo_inizio.getTime() + number * 60 * 60 * 1000);
-        return { i: number, display_date: Formatter.asTime(date), date: date }
+        let date = new Date(tempo_inizio.getTime() + Formatter.HtoMs(number));
+        return { i: number, display_date: Formatter.asTime(date), date: date, slot: date.getTime() }
     });
-    array_slots.filter((value, index) => {
-        console.log(value);
+    let slot_liberi = array_slots.filter((value, index) => {
         return (slots.some((slot) => {
-            console.log(slot)
-            return (slot.data_inizio <= value.date.getTime() && slot.data_fine >= value.date.getTime() + durata_lavaggio)
+            // console.log("comparazione: ", {
+            //     inizio_slot: slot.data_inizio,
+            //     date: value.date.getTime(),
+            //     fine_slot: slot.data_fine,
+            //     fine: value.date.getTime() + Formatter.MtoMs(durata_lavaggio + 30),
+            // })
+            return (slot.data_inizio <= value.date.getTime() && slot.data_fine >= value.date.getTime() + Formatter.MtoMs(durata_lavaggio + 30))
         }));
     })
 
-    response.send(array_slots)
+    response.send(slot_liberi)
 }
 
 exports.creaPrenotazione = async (request, response) => {
@@ -132,19 +137,80 @@ exports.creaPrenotazione = async (request, response) => {
     }
     let id_tipo_lavaggio = -1;
     let durata_lavaggio = -1;
-    let slot = -1;
-    if ((id_tipo_lavaggio = request.query.id_tipo_lavaggio)) {
-        durata_lavaggio = (await tipiLavaggio.findOne({ id: parseInt(id_tipo_lavaggio) })).durata;
-        response.send({ durata_lavaggio });
-    } else {
+    let numero_slot = -1;
+    let id_utente = -1;
+    if (!request.query.id_tipo_lavaggio) {
         response.send({ error: "Inserisci il parametro <b>id_tipo_lavaggio</b>" })
+        return;
     }
-
-    if ((slot = request.query.slot)) {
-        durata_lavaggio = (await tipiLavaggio.findOne({ id: parseInt(id_tipo_lavaggio) })).durata;
-        response.send({ durata_lavaggio });
-    } else {
-        response.send({ error: "Inserisci il parametro <b>id_tipo_lavaggio</b>" })
+    if (!request.query.slot) {
+        response.send({ error: "Inserisci il parametro <b>slot</b>" })
+        return;
     }
+    if (!request.query.id_utente) {
+        response.send({ error: "Inserisci il parametro <b>id_utente</b>" })
+        return;
+    }
+    id_tipo_lavaggio = parseInt(request.query.id_tipo_lavaggio);
+    numero_slot = parseInt(request.query.slot);
+    id_utente = parseInt(request.query.id_utente);
+    durata_lavaggio = (await tipiLavaggio.findOne({ id: id_tipo_lavaggio })).durata + 30;
 
+    param = {
+        id_lavatrice: { $in: await getLavatriciSbloccate() },
+        data_inizio: { $lte: numero_slot },
+        data_fine: { $gte: numero_slot + Formatter.MtoMs(durata_lavaggio + 30) },
+        stato: this.LIBERO
+    };
+
+
+    console.log("query per trovare slot: ", param);
+    slot = await slots.findOne(param)
+    fine_slot_succ = 9999999999999;
+    if (slot.data_fine != fine_slot_succ) {
+        console.log("questo è uno slot limitato, cerco il suo successivo")
+        slot_succ = await slots.find({
+            id_lavatrice: slot.id_lavatrice,
+            data_inizio: { $gte: slot.data_fine },
+
+        }).sort({
+            data_inizio: 1
+        }).toArray()
+        fine_slot_succ = slot_succ[0].data_fine;
+        console.log("Slot succ a quello scelto: ", slot_succ)
+    }
+    console.log("slot libero: ", slot)
+
+    slots.updateOne({ _id: slot._id }, { $set: { data_fine: numero_slot } }, { upsert: true });
+
+    data_inizio_penotazione = numero_slot;
+    data_fine_penotazione = numero_slot + Formatter.MtoMs(durata_lavaggio + 30);
+    prenotazione = {
+        data_inizio: numero_slot,
+        data_fine: data_fine_penotazione,
+        inizio_prenotazione: (new Date(data_inizio_penotazione)).toISOString(),
+        fine_prenotazione: (new Date(data_fine_penotazione)).toISOString(),
+        stato: this.OCCUPATO,
+        id_lavatrice: slot.id_lavatrice,
+        id_utente: id_utente,
+        id_tipo_lavaggio: id_tipo_lavaggio
+    };
+
+    slot_succ_a_prenotazione = {
+        data_inizio: numero_slot + Formatter.MtoMs(durata_lavaggio + 30),
+        data_fine: fine_slot_succ,
+        stato: this.LIBERO,
+        id_lavatrice: slot.id_lavatrice,
+    };
+
+    console.log("Prenotazione: ", prenotazione);
+    console.log("Succ a Prenotazione: ", slot_succ_a_prenotazione);
+    slots.insertMany([prenotazione, slot_succ_a_prenotazione]);
+
+    response.send({ status: "ok" })
+
+}
+
+function getLavatriciSbloccate() {
+    return lavatrici_sbloccate.distinct('id');
 }
