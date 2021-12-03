@@ -2,7 +2,7 @@ const prenotazioni = {
     template: `<div class="main-content">
     <h2 class="main-title">{{ $t("prenotazioni.titolo") }}</h2>
     <hr></hr>
-    <div class="list" v-if="charged">
+    <div class="list" v-if="fullStatus=='ready'">
         <section class="prenotazione" v-for="pren in prenotazioni">
             <div class="box">
                 <img src="./photo/lavatrice.jpg" class="img-lavatrice"></img>
@@ -56,14 +56,18 @@ const prenotazioni = {
 
         
     </div>
-        <div class="list centrated" v-else="charged">
+        <div class="list centrated" v-if="fullStatus=='charging'">
             <lottie-player src="./lottie/loading.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop autoplay></lottie-player>
             <span id="caricamento">{{ $t("prenotazioni.caricamento") }}</span>
+        </div>
+        <div class="list" v-if="fullStatus=='failure'">
+        <p class="red ordered">{{ $t("errorapi")}}</p>
         </div>
     </div>`,
     data(){
         return{
             prenotazioni:[],
+            fullStatus:'charging',
             full:false,
             charged:false,
             deleteModalOpen:false,
@@ -75,13 +79,14 @@ const prenotazioni = {
     },
     methods:{
         refreshData(){
-            //timer per aspettare 
+            this.fullStatus='charging';
             let timer = setTimeout(()=>{
-                document.getElementById("caricamento").innerHTML="<div class='red ordered'>Ci sta mettendo troppo tempo! L'API potrebbe essere non raggiungibile.</div>";
+                this.fullStatus='failure';
             },5000);
-            axios.get(variables.API_URL+"prenotazioni/attive/utente?id_utente=1")
+            axios.get(variables.API_URL+"prenotazioni/attive/utente?id_utente="+variables.ID_UTENTE)
             .then((response)=>{
                 clearTimeout(timer);
+                this.fullStatus='ready';
                 this.prenotazioni=response.data;
                 //console.log(this);
                 this.prenotazioni.forEach((el, index, arr)=>{

@@ -24,6 +24,7 @@ const languages =
       }
     },
     it: {
+      errorapi:"Ci sta mettendo troppo tempo! L'API potrebbe essere non raggiungibile.",
       giorni:["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"],
       mesi:["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"],
       menu: {
@@ -33,7 +34,7 @@ const languages =
       },
       prenotazioni: {
         titolo:"Lista Prenotazioni",
-        caricamento:"Caricamento Prenotazioni in corso...",
+        caricamento:"Caricamento in corso...",
         caricamentofallito:"Ci sta mettendo troppo tempo! L'API potrebbe essere non raggiungibile.",
         pren:{
           prenotazione:"Prenotazione",
@@ -50,7 +51,12 @@ const languages =
         fallimentoapertura:"ERRORE! Non è stato possibile aprire la lavatrice!",
         nuovaprenotazione:"Effettua nuova Prenotazione",
         maxpren:"Hai raggiunto il numero massimo di Prenotazioni!",
-        caricamento:"Caricamento prenotazioni in corso..."
-      }
+        caricamento:"Caricamento in corso..."
+      },
+      nuovaprenotazione: {
+        titolo:"Nuova Prenotazione",
+        minuti:"minuti",
+      },
+      tipolavaggio: ["Rapido","Delicati","30 Gradi"],
     }
 }

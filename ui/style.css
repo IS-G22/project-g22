@@ -22,6 +22,8 @@ body{
 h1, h2, h3, h4, h5, h6{
     margin:0; padding:0; border:0;
     font-family: monospace;
+    padding:10px;
+    text-align: center;
 }
 
 h1{
@@ -45,8 +47,15 @@ li{
 .app{
     width: 100%;
     height: 100%;
+}
+
+.background{
+    top:0; left:0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
     background-color: var(--main-bg-color);
-    overflow: hidden;
+    position: fixed;
 }
 
 .title{
@@ -110,6 +119,7 @@ li{
     margin: 15px;
     transition: all 0.3s;
     font-size: larger;
+    user-select: none;
 }
 
 .btn:hover{
@@ -280,6 +290,7 @@ li{
     height: 20px;
     border-radius: 20px;
     transition: all 0.3s;
+    user-select: none;
 }
 
 .bubble-on{
@@ -341,6 +352,59 @@ li{
     text-align: center;
 }
 
+.lavaggio{
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+    color: white;
+    border: 1px solid var(--btn-border-color);
+    background-color: var(--btn-bg-color);
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 5px;
+    transition: all 0.3s;
+    font-size: larger;
+    cursor: pointer;
+    user-select: none;
+}
+
+.lavaggio:hover{
+    color: var(--active-page)
+}
+
+.lavaggio > span{
+    color: white;
+    opacity: 0;
+    transition: all 0.3s;
+    font-size: x-large;
+}
+
+.lavaggio:hover > span{
+    opacity: 1;
+}
+
+.back{
+    display: flex;
+    position: absolute;
+    top:125px;
+    left:30%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    background-color: red;
+    color: white;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    user-select: none;
+    font-size: xx-large;
+}
+
+.back:hover{
+    color:var(--active-page);
+}
 
 @media only screen and (max-width: 700px) {
     .leftbar{
@@ -366,6 +430,7 @@ li{
         cursor: pointer;
         width: 50px;
         transition: all 0.3s;
+        user-select: none;
     }
     .btn-toggled{
         transform: rotate(90deg);
@@ -393,5 +458,7 @@ li{
         font-size: 40px;
     }
 
-
+    .back{
+        left: 10px;
+    }
 }
