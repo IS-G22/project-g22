@@ -23,6 +23,7 @@ h1, h2, h3, h4, h5, h6{
     margin:0; padding:0; border:0;
     font-family: monospace;
     padding:10px;
+    text-align: center;
 }
 
 h1{
@@ -118,6 +119,7 @@ li{
     margin: 15px;
     transition: all 0.3s;
     font-size: larger;
+    user-select: none;
 }
 
 .btn:hover{
@@ -288,6 +290,7 @@ li{
     height: 20px;
     border-radius: 20px;
     transition: all 0.3s;
+    user-select: none;
 }
 
 .bubble-on{
@@ -427,6 +430,7 @@ li{
         cursor: pointer;
         width: 50px;
         transition: all 0.3s;
+        user-select: none;
     }
     .btn-toggled{
         transform: rotate(90deg);
