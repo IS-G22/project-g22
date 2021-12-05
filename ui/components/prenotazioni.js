@@ -123,7 +123,7 @@ const prenotazioni = {
             let timer = setTimeout(()=>{
                 this.deleteStatus='failure';
             },5000);
-            axios.post(variables.API_URL+"prenotazioni/cancella?id_prenotazione="+this.deletePrenotazione)
+            axios.delete(variables.API_URL+"prenotazioni/cancella?id_prenotazione="+this.deletePrenotazione)
             .then((response)=>{
                 clearTimeout(timer);
                 console.log(response.data);//comunica che la prenotazione è stata cancellata con successo
