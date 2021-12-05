@@ -1,5 +1,5 @@
 const routes = [
-    { path: '/prenotazioni', component: prenotazioni },
+    { path: '/', component: prenotazioni },
     { path: '/guasto', component: guasto },
     { path: '/nuovaprenotazione', component: nuovaprenotazione },
     { path: '/tecnico', component: viewTecnico },

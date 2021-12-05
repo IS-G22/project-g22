@@ -12,7 +12,7 @@ const nuovaprenotazione = {
     <div class="list" v-if="fullStatus=='full'">
         <h3>{{ $t("nuovaprenotazione.max") }}</h3>
         <button class="new-prenot">
-            <router-link to="/prenotazioni" onClick="app.setActive()" class="menutext">{{$t("nuovaprenotazione.lista")}}</router-link>    
+            <router-link to="/" onClick="app.setActive()" class="menutext">{{$t("nuovaprenotazione.lista")}}</router-link>    
         </button>
     </div>
     <div class="list" v-if="fullStatus=='ready'">
@@ -68,7 +68,7 @@ const nuovaprenotazione = {
     <div class="list" v-if="fullStatus=='end'">
         <h3>{{$t("nuovaprenotazione.successo")}}</h3>
         <button class="new-prenot">
-            <router-link to="/prenotazioni" onClick="app.setActive()" class="menutext">{{$t("nuovaprenotazione.lista")}}</router-link>    
+            <router-link to="/" onClick="app.setActive()" class="menutext">{{$t("nuovaprenotazione.lista")}}</router-link>    
         </button>
     </div>
     </div>
