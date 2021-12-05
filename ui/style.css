@@ -417,6 +417,7 @@ li{
 .btn-lavatrice{
     color: white;
     cursor: pointer;
+    width: 100px;
 }
 
 .bloccata{
