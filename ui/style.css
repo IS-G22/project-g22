@@ -7,6 +7,10 @@
     --active-page: rgb(251, 255, 0);
 }
 
+* {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
 html{
     background-color: var(--components-bg-color);
     height: 100%;
@@ -23,10 +27,12 @@ body{
 h1, h2, h3, h4, h5, h6{
     margin:0; padding:0; border:0;
     font-family: monospace;
-    padding:10px;
+    padding-bottom:10px;
     text-align: center;
     font-size: x-large;
 }
+
+
 
 h1{
     font-size: 50px;

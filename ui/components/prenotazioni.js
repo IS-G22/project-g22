@@ -88,7 +88,7 @@ const prenotazioni = {
                 clearTimeout(timer);
                 this.fullStatus='ready';
                 this.prenotazioni=response.data;
-                console.log(this.prenotazioni);
+                //console.log(this.prenotazioni);
                 this.prenotazioni.forEach((el, index, arr)=>{
                     let data = new Date(el.data_inizio);
                     let data2 = new Date(el.data_fine);
