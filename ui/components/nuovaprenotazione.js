@@ -19,14 +19,14 @@ const nuovaprenotazione = {
         <h3>Scegli il tipo di lavaggio che vuoi effettuare:</h3>
         <div v-for="lavaggio in tipo_lavaggio">
             <div  class="lavaggio" @click="selectLavaggio(lavaggio)">
-                <div>{{ lavaggio.nome }}</div> <div>{{lavaggio.durata}} {{$t("nuovaprenotazione.minuti")}}</div><span>></span>
+                <div>{{ $t("tipolavaggio")[lavaggio.id] }}</div> <div>{{lavaggio.durata}} {{$t("nuovaprenotazione.minuti")}}</div><span>></span>
             </div>
         </div>
     </div>
     <div class="list" v-if="fullStatus=='setdays'">
         <div class="back" @click="backToStart"><span><</span></div>
         <div  class="lavaggio">
-            <div>{{ tipo_lavaggio_selezionato.nome }}</div> <div>{{tipo_lavaggio_selezionato.durata}} {{$t("nuovaprenotazione.minuti")}}</div>
+            <div>{{ $t("tipolavaggio")[tipo_lavaggio_selezionato.id] }}</div> <div>{{tipo_lavaggio_selezionato.durata}} {{$t("nuovaprenotazione.minuti")}}</div>
         </div>
         <h3>Seleziona il giorno:</h3>
         <div v-for="giorno in giorni_disponibili">
@@ -38,7 +38,7 @@ const nuovaprenotazione = {
     <div class="list" v-if="fullStatus=='setinterval'">
         <div class="back" @click="backToDays"><span><</span></div>
         <div  class="lavaggio">
-            <div>{{ tipo_lavaggio_selezionato.nome }}</div> <div>{{tipo_lavaggio_selezionato.durata}} {{$t("nuovaprenotazione.minuti")}}</div>
+            <div>{{ $t("tipolavaggio")[tipo_lavaggio_selezionato.id] }}</div> <div>{{tipo_lavaggio_selezionato.durata}} {{$t("nuovaprenotazione.minuti")}}</div>
         </div>
         <div  class="lavaggio">
             <div>{{$t("giorni")[giorno_selezionato.formatted_day]}} {{giorno_selezionato.formatted_date}} {{$t("mesi")[giorno_selezionato.formatted_month]}}</div>
@@ -54,7 +54,7 @@ const nuovaprenotazione = {
     <div class="list" v-if="fullStatus=='summary'">
         <div class="back" @click="backToSlots"><span><</span></div>
         <div  class="lavaggio">
-            <div>{{ tipo_lavaggio_selezionato.nome }}</div> <div>{{tipo_lavaggio_selezionato.durata}} {{$t("nuovaprenotazione.minuti")}}</div>
+            <div>{{ $t("tipolavaggio")[tipo_lavaggio_selezionato.id] }}</div> <div>{{tipo_lavaggio_selezionato.durata}} {{$t("nuovaprenotazione.minuti")}}</div>
         </div>
         <div  class="lavaggio">
             <div>{{$t("giorni")[giorno_selezionato.formatted_day]}} {{giorno_selezionato.formatted_date}} {{$t("mesi")[giorno_selezionato.formatted_month]}}</div>
