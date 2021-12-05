@@ -7,8 +7,8 @@ const prenotazioni = {
             <div class="box">
                 <img src="./photo/lavatrice.jpg" class="img-lavatrice"></img>
                 <div class="box-info">
-                    <h4>{{ $t("prenotazioni.pren.prenotazione") }}</h4>
                     <h5>{{ $t("prenotazioni.pren.lavatrice") }} {{pren.id_lavatrice}}</h5>
+                    <h4>{{ $t("tipolavaggio")[pren.id_tipo_lavaggio] }}</h4>    
                     <div>{{$t("giorni")[pren.formatted_day]}} {{pren.formatted_date}} {{$t("mesi")[pren.formatted_month]}} {{pren.formatted_year}}</div>
                     <div class="slot">{{pren.formatted_slot}}</div>
                 </div>
@@ -88,7 +88,7 @@ const prenotazioni = {
                 clearTimeout(timer);
                 this.fullStatus='ready';
                 this.prenotazioni=response.data;
-                //console.log(this);
+                console.log(this.prenotazioni);
                 this.prenotazioni.forEach((el, index, arr)=>{
                     let data = new Date(el.data_inizio);
                     let data2 = new Date(el.data_fine);
