@@ -17,6 +17,11 @@ function formattaSlot(data_init, data_fine){
     return `${data_init.getHours()}:${addZero(minuti_init)} - ${data_fine.getHours()}:${addZero(minuti_fine)}`;
 }
 
+function formattaSlotPrenotazione(data_init){
+    let minuti_init=data_init.getMinutes();
+    return `${data_init.getHours()}:${addZero(minuti_init)}`;
+}
+
 Date.prototype.addDays = function(days) {
     let date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);

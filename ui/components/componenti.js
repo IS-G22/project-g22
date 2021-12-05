@@ -19,6 +19,6 @@ Vue.component('modal',{
         <div class="modal-box" v-bind:class="[isModalOpen==true ? 'modal-box-on' : '']" @click="(event)=>{event.stopPropagation()}"><slot></slot></div>
     </div>`,
     mounted:function(){
-       console.log(this.isModalOpen);
+       //console.log(this.isModalOpen);
     }
 })
