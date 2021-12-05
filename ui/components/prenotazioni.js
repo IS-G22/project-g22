@@ -90,7 +90,6 @@ const prenotazioni = {
                 this.prenotazioni=response.data;
                 //console.log(this);
                 this.prenotazioni.forEach((el, index, arr)=>{
-                    console.log(el)
                     let data = new Date(el.data_inizio);
                     let data2 = new Date(el.data_fine);
                     arr[index].formatted_day = (data).getDay();
@@ -99,9 +98,9 @@ const prenotazioni = {
                     arr[index].formatted_year = (data).getFullYear();
                     arr[index].formatted_slot = formattaSlot(data, data2);
                 })
-                if(this.prenotazioni.lenght<2){
-                    this.full= false;
-                }else{this.full=true}
+                if(this.prenotazioni.length<2){
+                    this.full= true;
+                }else{this.full=false}
 
 
                 this.charged=true;

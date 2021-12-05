@@ -30,7 +30,8 @@ const languages =
     menu: {
       prenotazioni: "Prenotazioni",
       guasto: "Segnala guasto",
-      nuovaprenotazione: "Nuova Prenotazione"
+      nuovaprenotazione: "Nuova Prenotazione",
+      tecnico:"Tecnico"
     },
     prenotazioni: {
       titolo: "Lista Prenotazioni",
@@ -56,6 +57,11 @@ const languages =
     nuovaprenotazione: {
       titolo: "Nuova Prenotazione",
       minuti: "minuti",
+      conferma:"Confermare la seguente Prenotazione?",
+      buttonconferma:"Conferma Prenotazione",
+      successo:"La Prenotazione è stata effettuata con successo!",
+      lista:"Torna alla lista delle Prenotazioni",
+      max:"Numero massimo di prenotazioni raggiunto!"
     },
     tipolavaggio: ["Rapido", "Delicati", "30 Gradi"],
     lavatrice: { bottone: { bloccata: "Sblocca", sbloccata: "Blocca" } },
