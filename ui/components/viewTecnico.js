@@ -1,13 +1,15 @@
 const lavatrice = {
     props: ['lavatrice'],
     template: `  
-    <div class="box">
+    <div class="prenotazione" v-bind:class="[lavatrice.stato=='bloccata' ? 'layout-bloccata' : 'layout-sbloccata']">
+        <div class="box">
         <img src="./photo/lavatrice.jpg" class="img-lavatrice"></img>
         <div class="box-info">
             <h5>Lavatrice {{ lavatrice.id }}</h5>
             <p> Stato: {{lavatrice.stato}} </p>
         </div>
-        <button @click="toggleClicca">{{ $t("lavatrice.bottone." +lavatrice.stato)}}</button>
+        <button @click="toggleClicca" class="btn btn-lavatrice" v-bind:class="[lavatrice.stato=='bloccata' ? 'bloccata' : 'sbloccata']">{{ $t("lavatrice.bottone." +lavatrice.stato)}}</button>
+        </div>
     </div>`,
     data() {
         return {
@@ -27,6 +29,7 @@ const lavatrice = {
                     url = 'blocca';
                     break;
             }
+            this.openStatus="charging"
             let timer = setTimeout(() => {
                 this.openStatus = 'failure';
             }, 5000);
@@ -36,7 +39,7 @@ const lavatrice = {
                     //console.log(response);
                     if (response.data.status == 'err') {
                         this.openStatus = 'failure';
-                        console.log("e", this.lavatrice.stato)
+                        //console.log("e", this.lavatrice.stato)
 
                     } else {
                         if (response.data.stato) {
@@ -44,6 +47,7 @@ const lavatrice = {
                         }
                         console.log(this.lavatrice.stato)
                         this.openStatus = 'success';
+                        
                     }
                 })
         }
@@ -87,7 +91,9 @@ const viewTecnico = {
                 .then((response) => {
                     clearTimeout(timer);
                     this.lavatrici = response.data;
-                    console.log(this);
+                    //console.log(this.lavatrici);
+                    this.lavatrici.sort((first,second)=>{
+                        return first.stato>second.stato ? -1 : 1})
                     this.charged = true;
                 });
         },
