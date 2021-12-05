@@ -3,6 +3,7 @@
     --components-bg-color:white;
     --btn-bg-color:rgba(0, 162, 255, 1);
     --btn-border-color: rgba(0, 162, 255, 1);
+    --box-active-color:rgba(0, 162, 255, 0.5);
     --active-page: rgb(251, 255, 0);
 }
 
@@ -404,6 +405,27 @@ li{
 
 .back:hover{
     color:var(--active-page);
+}
+
+.btn-lavatrice{
+    color: white;
+    cursor: pointer;
+}
+
+.bloccata{
+    background-color: green;
+}
+
+.sbloccata{
+    background-color: red;
+}
+
+.layout-bloccata{
+    background-color: rgba(128, 128, 128, 0.5);
+}
+
+.layout-sbloccata{
+    background-color: var(--box-active-color);
 }
 
 @media only screen and (max-width: 700px) {
