@@ -5,23 +5,46 @@ const languages =
     mesi: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
     menu: {
       prenotazioni: "Reservations",
-      guasto: "Reports failure",
-      nuovaprenotazione: "New Reservation"
+      guasto: "Report failure",
+      nuovaprenotazione: "New Reservation",
+      tecnico:"Technician"
     },
     prenotazioni: {
-      titolo: "",
-      caricamento: "",
-      caricamentofallito: "",
+      titolo: "Reservations List",
+      caricamento: "Loading...",
+      caricamentofallito: "Error: taking too much time to load. The API might be currently not reachable.",
       pren: {
-        prenotazione: "",
-        lavatrice: "",
-        cancella: "",
-        apri: "",
+        prenotazione: "Reservation",
+        lavatrice: "Washing Machine",
+        cancella: "Delete Reservation",
+        apri: "OPEN DOOR",
       },
-      confermacancella: "",
-      nuovaprenotazione: "",
-      maxpren: "",
-    }
+      confermatesto: "Are you sure you want to delete this Reservation?",
+      confermacancella: "Delete",
+      annulla: "Cancel",
+      successocancellazione: "Your Reservation has been successfully deleted.",
+      fallimentocancellazione: "ERROR: it is not possible to delete the Reservation.",
+      successoapertura: "The door has been successfully opened.",
+      fallimentoapertura: "ERROR: it is not possible to open the door",
+      nuovaprenotazione: "Make a new Reservation",
+      maxpren: "ERROR: maximum number of active Reservations has been reached.",
+      caricamento: "Loading..."
+    },
+    nuovaprenotazione: {
+      titolo: "New Reservation",
+      minuti: "minutes",
+      conferma: "Confirm this Reservation?",
+      buttonconferma: "Confirm",
+      successo: "Your Reservation has been successfully saved.",
+      lista: "Go back to the Reservations List",
+      max: "ERROR: maximum number of active Reservations has been reached."
+    },
+    guasto: {
+      titolo: "Report failure",
+    },
+    tipolavaggio: ["", "Fast", "Delicate", "30 Degrees"],
+    lavatrice: { bottone: { bloccata: "Unlock", sbloccata: "Lock" } },
+    tecnico: { titolo: "Whasing Machines" }
   },
   it: {
     errorapi: "Ci sta mettendo troppo tempo! L'API potrebbe essere non raggiungibile.",
