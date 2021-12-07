@@ -69,27 +69,27 @@ const languages =
       confermatesto: "Sei sicuro che vuoi cancellare questa prenotazione?",
       confermacancella: "Conferma",
       annulla: "Annulla",
-      successocancellazione: "La Prenotazione è stata cancellata con successo!",
-      fallimentocancellazione: "ERRORE! Non è stato possibile cancellare la prenotazione!",
-      successoapertura: "La Lavatrice è stata aperta con successo!",
-      fallimentoapertura: "ERRORE! Non è stato possibile aprire la lavatrice!",
+      successocancellazione: "La Prenotazione è stata cancellata con successo",
+      fallimentocancellazione: "ERRORE: Non è stato possibile cancellare la prenotazione",
+      successoapertura: "Lo sportello è stato aperto con successo!",
+      fallimentoapertura: "ERRORE: Non è stato possibile aprire la lavatrice",
       nuovaprenotazione: "Effettua nuova Prenotazione",
-      maxpren: "Hai raggiunto il numero massimo di Prenotazioni!",
+      maxpren: "ERRORE: hai raggiunto il numero massimo di Prenotazioni.",
       caricamento: "Caricamento in corso..."
     },
     nuovaprenotazione: {
       titolo: "Nuova Prenotazione",
       minuti: "minuti",
-      conferma:"Confermare la seguente Prenotazione?",
-      buttonconferma:"Conferma Prenotazione",
-      successo:"La Prenotazione è stata effettuata con successo!",
-      lista:"Torna alla lista delle Prenotazioni",
-      max:"Numero massimo di prenotazioni raggiunto!"
+      conferma: "Confermare la seguente Prenotazione?",
+      buttonconferma: "Conferma Prenotazione",
+      successo: "La Prenotazione è stata effettuata con successo!",
+      lista: "Torna alla lista delle Prenotazioni",
+      max: "Numero massimo di prenotazioni raggiunto!"
     },
-    guasto:{
-      titolo:"Segnala un Guasto",
+    guasto: {
+      titolo: "Segnala un Guasto",
     },
-    tipolavaggio: ["","Rapido", "Delicati", "30 Gradi"],
+    tipolavaggio: ["", "Rapido", "Delicati", "30 Gradi"],
     lavatrice: { bottone: { bloccata: "Sblocca", sbloccata: "Blocca" } },
     tecnico: { titolo: "Lavatrici" }
   }
