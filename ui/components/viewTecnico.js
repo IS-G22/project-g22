@@ -33,7 +33,7 @@ const lavatrice = {
             let timer = setTimeout(() => {
                 this.openStatus = 'failure';
             }, 5000);
-            axios.get(variables.API_URL + "lavatrici/" + url + "?id_lavatrice=" + this.lavatrice.id)
+            axios.post(variables.API_URL + "lavatrici/" + url + "?id_lavatrice=" + this.lavatrice.id)
                 .then((response) => {
                     clearTimeout(timer);
                     //console.log(response);
